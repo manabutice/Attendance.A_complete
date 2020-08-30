@@ -1,0 +1,16 @@
+{
+  "name": "a_app",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "5.1.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  },
+  "babel": {
+    "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
