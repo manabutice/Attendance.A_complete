@@ -2,16 +2,21 @@
 <div>
   <table class="table table-bordered table-condensed user-table">
     <tr>
-      <td>時間管理表</td>
-      <td>指定勤務開始時間<br>指定勤務終了時間</td>
+      <td>
+        <%= link_to "◀︎","#",class: "btn btn-primary" %> &nbsp;&nbsp;
+          時間管理表
+        <%= link_to "▶︎","#",class: "btn btn-primary" %> &nbsp;&nbsp;
+      </td>
+      <td>指定勤務開始時間：<%= @user.designation_work_start_time %><br>
+          指定勤務終了時間：<%= @user.designation_work_end_time %></td>
       <td colspan="3">基本時間</td>
       <td>初日</td>
     </tr>
 
     <tr>
-      <td>所属</td>
+      <td>所属：<%= @user.department %></td>
       <td>名前：<%= @user.name %></td>
-      <td>コード</td>
+      <td>コード：<%= @user.staff_id %></td>
       <td></td>
       <td>出勤日数</td>
       <td>締め</td>
