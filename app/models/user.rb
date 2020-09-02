@@ -36,6 +36,6 @@ class User < ApplicationRecord
   end
   
   def forget
-    uppdate_attribute(:remember_digest, nil)
+    update_attribute(:remember_digest, nil)
   end  
 end
