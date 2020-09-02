@@ -18,6 +18,12 @@ class UsersController < ApplicationController
     end  
   end 
 
+  def destroy
+    log_out
+    flash[:success] = "ログアウトしました"
+    redirect_to root_url
+
+
   private
 
     def user_params
