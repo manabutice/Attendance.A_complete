@@ -35,7 +35,7 @@ class User < ApplicationRecord
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
   
-  def foget
+  def forget
     uppdate_attribute(:remember_digest, nil)
   end  
 end
