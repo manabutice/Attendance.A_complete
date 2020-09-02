@@ -5,6 +5,8 @@
   text-align: center;
 }
 
+/* 入力フォーム */
+
 .label-signup {
   margin-top: 5px;
 }
@@ -13,9 +15,10 @@
   margin-top: 10px;
 }
 
-/* ユーザー情報テーブル */
+.label-user--edit {
+  margin-top: 5px;
+}
 
-.user-table {
-  vertical-align: middle;
-  text-align: center;
+.btn-user--edit {
+  margin-top: 10px;
 }
