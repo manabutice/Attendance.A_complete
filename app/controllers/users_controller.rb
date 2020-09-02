@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     log_out
     flash[:success] = "ログアウトしました"
     redirect_to root_url
+  end 
 
 
   private
