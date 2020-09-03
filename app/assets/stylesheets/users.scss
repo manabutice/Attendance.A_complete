@@ -16,6 +16,10 @@
     vertical-align: middle;
     text-align: center;
   }
+    // class="line"の行の奇数列に色をつける
+    .line tr:nth-child(odd) td{
+      background: #F8F8FF;
+    }
 }
 
 /* 入力フォーム */
