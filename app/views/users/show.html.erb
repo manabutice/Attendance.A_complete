@@ -43,12 +43,20 @@
       </tr>
     </thead>
 
-    <tbody>
-      <% (@first_day..@last_day).each do |day| %>
+    <tbody tbody class="line">
+    <% @attendances.each do |day| %>
+          <% css_class = 
+            case $days_of_the_week[day.worked_on.wday]
+              when '土'
+                'text-primary'
+              when '日'
+                'text-danger'
+              end
+              %>
         <tr>
           <td><%= link_to "残業申請","#", class: "btn btn-primary" %></td>
-          <td><%= l(day, format: :short) %></td>
-          <td><%= $days_of_the_week[day.wday] %></td>
+          <td><%= l(day.worked_on, format: :short) %></td>
+          <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td></td>
           <td></td>
           <td></td>
