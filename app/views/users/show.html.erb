@@ -5,9 +5,9 @@
       <td>
         <%= link_to "◀︎","#",class: "btn btn-primary" %> &nbsp;&nbsp;時間管理表<%= link_to "▶︎","#",class: "btn btn-primary" %> &nbsp;&nbsp;
       </td>
-      <td>指定勤務開始時間：<%= @user.format_basic_infodesignation_work_start_time %><br>
-          指定勤務終了時間：<%= @user.format_basic_infodesignation_work_end_time %></td>
-      <td colspan="3">基本時間<<%= @user.format_basic_infobasic_work_time %>/<td>
+      <td>指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>
+          指定勤務終了時間：<%= format_basic_info(@user.designation_work_end_time) %></td>
+      <td colspan="3">基本時間<%= format_basic_info(@user.basic_work_time) %></td>
       <td>初日</td>
     </tr>
 
