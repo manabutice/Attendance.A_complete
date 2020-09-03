@@ -3,12 +3,12 @@
   <table class="table table-bordered table-condensed user-table">
     <tr>
       <td>
-        <%= link_to "◀︎","#",class: "btn btn-primary" %>
+        <%= link_to "◀︎",user_path(date: @first_day.prev_month),class: "btn btn-primary" %>
         &nbsp;&nbsp;
         【<%= l(@first_day, format: :middle) %>】
         時間管理表
         &nbsp;&nbsp;
-        <%= link_to "▶︎","#",class: "btn btn-primary" %>
+        <%= link_to "▶︎",user_path(date: @first_day.next_month),class: "btn btn-primary" %>
       </td>
       <td>指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>
           指定勤務終了時間：<%= format_basic_info(@user.designation_work_end_time) %></td>
