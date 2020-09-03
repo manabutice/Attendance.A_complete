@@ -12,7 +12,7 @@
     </tr>
 
     <tr>
-      <td>所属：<%= @user.department %></td>
+      <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
       <td>名前：<%= @user.name %></td>
       <td>コード：<%= @user.staff_id %></td>
       <td></td>
