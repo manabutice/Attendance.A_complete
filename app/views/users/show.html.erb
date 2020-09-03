@@ -3,6 +3,7 @@
   <table class="table table-bordered table-condensed user-table">
     <tr>
       <td>
+      <div class="btn-users-show">
         <%= link_to "◀︎",user_path(date: @first_day.prev_month),class: "btn btn-primary" %>
         &nbsp;&nbsp;
         【<%= l(@first_day, format: :middle) %>】
@@ -26,3 +27,4 @@
     </tr>
   </table>
 </div>
+
