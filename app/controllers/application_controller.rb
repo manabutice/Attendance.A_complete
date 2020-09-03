@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     @first_day = Date.current.beginning_of_month
     @last_day = @first_day.end_of_month
     one_month = [*@first_day..@last_day] 
-    @attendances = @user.attendances.where(worked_on: @first_day..@last_day)
+    @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
 
     unless one_month.count == @attendances.count 
       ActiveRecord::Base.transaction do 
