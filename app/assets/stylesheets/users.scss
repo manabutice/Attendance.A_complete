@@ -8,9 +8,14 @@
 /* ユーザー勤怠情報テーブル */
 
 #table-attendances {
+
+  margin-top:10px;
+
   th {
     vertical-align: bottom;
     text-align: center;
+    margin-top: 20px;
+    
   }
   td {
     vertical-align: bmiddle;
@@ -21,8 +26,6 @@
       background: #F8F8FF;
     }
 
-    
-    
     .maru {
       display: inline-flex;
       justify-content: center;
