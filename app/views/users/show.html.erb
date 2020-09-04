@@ -22,7 +22,7 @@
       <td>名前：<%= @user.name %></td>
       <td>コード：<%= @user.staff_id %></td>
       <td></td>
-      <td>出勤日数</td>
+      <td>出勤日数：<%= @worked_sum %>日</td>
       <td>締め<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
@@ -35,7 +35,7 @@
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">
     <thead>
       <tr>
-        <th rowspan ="4">残業申請</th>
+        <th rowspan ="3">残業申請</th>
         <th rowspan ="3">日付</th>
         <th rowspan ="3">曜日</th>
         <th colspan="8">【実績】</th>
@@ -98,5 +98,33 @@
         </tr>
       <% end %>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td></td>
+        <td colspan="2">累計日数<br>
+          <%= @attendances.count %>日</td>
+        <td colspan="6">総合勤務時間<br>
+          </td>
+        <td>累計在社時間<br>
+          <%= format("%.2f", @total_working_times.to_f) %></td>
+        <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        <td>
+          <%= form_with(model: @user, local: true) do |f| %>
+          <div class="form-group">
+            <%= f.label :boss,"所属長承認 未" %>
+            <%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %>
+          </div>
+          <div class="form-group">
+            <%= f.submit '申請する', class: 'btn btn-primary' %>
+          </div>
+          <% end %>
+        </td>
+      </tr>
+    </tfoot> 
   </table>
 </div>
