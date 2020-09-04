@@ -9,17 +9,41 @@
 
 #table-attendances {
   th {
-    vertical-align: middle;
+    vertical-align: bottom;
     text-align: center;
   }
   td {
-    vertical-align: middle;
+    vertical-align: bmiddle;
     text-align: center;
   }
     // class="line"の行の奇数列に色をつける
     .line tr:nth-child(odd) td{
       background: #F8F8FF;
     }
+
+    
+    
+    .maru {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+    .size_small{
+      width: 18px;
+      height: 18px;
+    }
+    .letter3 {
+      font-size: 0.7em;
+      line-height: 1.5em;
+    }
+    .black {
+      color: black;
+      border: 1px solid black;
+    }
+
+
+
 }
 
 /* 入力フォーム */
