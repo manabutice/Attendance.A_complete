@@ -5,7 +5,7 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find(params[:id])
 
     if @attendance.started_at.nil?
-      if @attendance.update_attributes(started_at: Time.current.change(sec: 0)))
+      if @attendance.update_attributes(started_at: Time.current.change(sec: 0))
         flash[:info] = "おはようございます!"
       else
         flash[:info] = "勤怠登録に失敗しました。やり直してください。"
