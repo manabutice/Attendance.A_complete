@@ -95,7 +95,10 @@
           <td><% if btn_text = attendance_state_finish(day) %>
               <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %></td>
               <% end %>
-          <td></td>
+          <td><% if day.started_at.present? && day.finished_at.present? %>
+        <%= working_times(day.started_at, day.finished_at) %>
+      <% end %>
+      </td>
           <td></td>
           <td></td>
           <td></td>
