@@ -95,9 +95,11 @@
           <td><% if btn_text = attendance_state_finish(day) %>
               <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %></td>
               <% end %>
-          <td><% if day.started_at.present? && day.finished_at.present? %>
-        <%= working_times(day.started_at, day.finished_at) %>
-      <% end %>
+          <td>
+           <% if day.started_at.present? && day.finished_at.present? %>
+              <%= str_times = working_times(day.started_at, day.finished_at) %>
+              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+            <% end %>
       </td>
           <td></td>
           <td></td>
@@ -115,6 +117,7 @@
         <td colspan="2">累計日数<br>
           <%= @attendances.count %>日</td>
         <td colspan="6">総合勤務時間<br>
+       
           </td>
         <td>累計在社時間<br>
           <%= format("%.2f", @total_working_times.to_f) %></td>
