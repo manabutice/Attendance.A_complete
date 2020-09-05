@@ -117,7 +117,7 @@
         <td colspan="2">累計日数<br>
           <%= @attendances.count %>日</td>
         <td colspan="6">総合勤務時間<br>
-       
+  <%= format_basic_info(@user.basic_work_time).to_f * @worked_sum %>
           </td>
         <td>累計在社時間<br>
           <%= format("%.2f", @total_working_times.to_f) %></td>
