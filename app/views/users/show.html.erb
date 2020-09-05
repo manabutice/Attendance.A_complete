@@ -82,7 +82,7 @@
           <td><%= link_to "残業申請","#", class: "btn btn-primary" %></td>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
+          <td><%= l(day.started_at,format: :hour) if day.started_at.present? %></td>
           <td></td>
 
           <td><% if (Date.current == day.worked_on) && day.started_at.nil? %>
