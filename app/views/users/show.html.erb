@@ -92,8 +92,9 @@
 
           <td></td>
           <td></td>
-          <td><% unless (Date.current == day.worked_on) && day.started_at.present? day.finished_at.nil? %>
-        <%= link_to "退勤登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %></td>
+          <td><% if (Date.current == day.worked_on) && day.started_at.present? day.finished_at.nil? %>
+        <%= link_to "退勤登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+        <% end %></td>
           <td></td>
           <td></td>
           <td></td>
