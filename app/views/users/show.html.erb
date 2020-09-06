@@ -28,7 +28,7 @@
   </table>
 </div>
 
-  <%= link_to "勤怠を編集","#",class: "btn btn-primary" %> &nbsp;<%= link_to "CSV出力","#",class: "btn btn-primary" %><br>
+  <%= link_to "勤怠を編集",attendances_edit_one_month_user_path(date: @first_day),class: "btn btn-primary" %> &nbsp;<%= link_to "CSV出力","#",class: "btn btn-primary" %><br>
   <%= link_to "勤怠修正ログ（承認済）","#",class: "btn btn-primary" %>
 
 <div>
@@ -96,11 +96,11 @@
               <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %></td>
               <% end %>
           <td>
-           <% if day.started_at.present? && day.finished_at.present? %>
-              <%= str_times = working_times(day.started_at, day.finished_at) %>
-              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+            <% if day.started_at.present? && day.finished_at.present? %>
+            <%= str_times = working_times(day.started_at, day.finished_at) %>
+            <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
-      </td>
+          </td>
           <td></td>
           <td></td>
           <td></td>
