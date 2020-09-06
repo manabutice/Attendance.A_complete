@@ -12,7 +12,6 @@
         <th>翌日</th>
         <th>在社時間</th>
         <th>備考</th>
-        <th>在社時間</th>
         <th>指示者確認<div class="maru size_small black">       
           <div class="letter3">印</div>
         </th>
@@ -32,11 +31,10 @@
         <tr>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <td><%= attendance.time_field :started_at, class: "form-control" %></td>
-          <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
+          <td><%= attendance.time_select :started_at, class: "form-control" %></td>
+          <td><%= attendance.time_select :finished_at, class: "form-control" %></td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td><%= attendance.text_field :note, class: "form-control" %></td>
           <td></td>
           <td></td>
         </tr>
