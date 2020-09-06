@@ -35,7 +35,12 @@
           <td><%= attendance.time_select :finished_at, class: "form-control" %></td>
           <td><%= check_box_tag :tomorrow %>
               <%= label_tag :tomorrow, "" %></td>
-          <td></td>
+          <td>
+            <% if day.started_at.present? && day.finished_at.present? %>
+              <%= str_times = working_times(day.started_at, day.finished_at) %>
+              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+            <% end %>
+          </td>
           <td><%= attendance.text_field :note, class: "form-control" %></td>
           <td><%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %></td>
         </tr>
