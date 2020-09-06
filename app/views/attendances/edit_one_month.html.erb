@@ -36,7 +36,7 @@
           <td></td>
           <td></td>
           <td><%= attendance.text_field :note, class: "form-control" %></td>
-          <td></td>
+          <td><%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %></td>
         </tr>
         <% end %>
       <% end %>
