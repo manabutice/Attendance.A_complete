@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 2020_09_03_022327) do
     t.string "department"
     t.string "staff_id"
     t.string "card_id"
-    t.datetime "basic_work_time", default: "2020-09-02 23:00:00"
-    t.datetime "designation_work_start_time", default: "2020-09-03 00:00:00"
-    t.datetime "designation_work_end_time", default: "2020-09-03 09:00:00"
+    t.datetime "basic_work_time", default: "2020-09-05 23:00:00"
+    t.datetime "designation_work_start_time", default: "2020-09-06 00:00:00"
+    t.datetime "designation_work_end_time", default: "2020-09-06 09:00:00"
     t.boolean "admin", default: false
     t.string "remember_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
