@@ -20,6 +20,7 @@
     </thead>
     <tbody>
       <% @attendances.each do |day| %>
+      <%= f.fields_for "attendances[]", day do |attendance| %>
         <% css_class = 
               case $days_of_the_week[day.worked_on.wday]
                 when '土'
@@ -31,14 +32,15 @@
         <tr>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <td></td>
-          <td></td>
+          <td><%= attendance.time_field :started_at, class: "form-control" %></td>
+          <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
         </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
