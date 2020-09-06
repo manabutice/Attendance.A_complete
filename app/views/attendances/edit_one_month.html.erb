@@ -33,7 +33,8 @@
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td><%= attendance.time_select :started_at, class: "form-control" %></td>
           <td><%= attendance.time_select :finished_at, class: "form-control" %></td>
-          <td></td>
+          <td><%= check_box_tag :tomorrow %>
+              <%= label_tag :tomorrow, "" %></td>
           <td></td>
           <td><%= attendance.text_field :note, class: "form-control" %></td>
           <td><%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %></td>
