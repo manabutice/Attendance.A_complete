@@ -31,7 +31,7 @@
         %>
         <tr>
           <td><%= l(day.worked_on, format: :short) %></td>
-          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+          <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td><%= attendance.time_field :started_at, class: "form-control" %></td>
           <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
           <td></td>
