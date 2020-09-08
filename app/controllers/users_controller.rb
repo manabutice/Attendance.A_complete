@@ -34,6 +34,8 @@ class UsersController < ApplicationController
     end 
   end  
 
+  def edit_basic_info
+  end 
 
   
 
