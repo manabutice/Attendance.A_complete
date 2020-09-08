@@ -45,10 +45,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
-    end  
-
-    def basic_info_params
-      params.require(:user).permit(:basic_time, :work_time)
     end
-    
+
   end
