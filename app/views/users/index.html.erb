@@ -25,26 +25,23 @@
 
 
 
-<table class="table id="table-users">
-    
-<thead>
-    <% @users.each do |user| %>
-</thead>    
-
-      
-
+<table id="table-users">
+  <thead>
       <tr>
-        <td><%= user.name %></td>
+        <th><%= User.human_attribute_name :name %></th>
       </tr>
+  </thead>
+    <% @users.each do |user| %>
       <tr>
         <td>
-          <% if current_user.admin? %>
-            <%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" },
+          <%= user.name%>
+            <p>
+              <%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" },
                     class: "btn btn-md btn-primary" %>
-                    <p> <%= link_to "編集", edit_user_path(user), remote: true, class: "btn btn-primary" %></P>
-          <% end %>
+            </p>
+            <p><%= link_to "編集", edit_user_path(user), local: true, class: "btn btn-primary" %></P>
         </td>
-        </tr>
+      </tr>
     <% end %>
   </table>
 
