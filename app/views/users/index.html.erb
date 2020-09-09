@@ -26,11 +26,6 @@
 
 
 <table id="table-users">
-  <thead>
-    <tr>
-      <th><%= User.human_attribute_name :name %></th>
-    </tr>
-  </thead>
     <% @users.each do |user| %>
       <tr>
         <td>
@@ -45,8 +40,9 @@
     <div class="panel-heading">
 
       <h4 class="panel-title">
-      <button data-toggle="collapse" href="#collapse<%= user.id %>" class="btn btn-md btn-primary">
-      編集</button>
+      <div>
+      <button data-toggle="collapse" href="#collapse<%= user.id %>"  class=" col-12 btn btn-md btn-primary">
+ 編集</button>
       </h4>
     </div>
     <div id="collapse<%= user.id %>" class="panel-collapse collapse">
