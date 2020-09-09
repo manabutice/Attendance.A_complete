@@ -27,22 +27,34 @@
 
 <table id="table-users">
   <thead>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-      </tr>
+    <tr>
+      <th><%= User.human_attribute_name :name %></th>
+    </tr>
   </thead>
     <% @users.each do |user| %>
       <tr>
         <td>
           <%= user.name%>
+  
             <p>
-              <%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" },
-                    class: "btn btn-md btn-primary" %>
+              <%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" },class: "btn btn-md btn-primary" %>
             </p>
-            <p><%= link_to "編集", edit_user_path(user), local: true, class: "btn btn-primary" %></P>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
 
-    
+      <h4 class="panel-title">
+      <button data-toggle="collapse" href="#collapse<%= user.id %>" class="btn btn-md btn-primary">
+      編集</button>
+      </h4>
+    </div>
+    <div id="collapse<%= user.id %>" class="panel-collapse collapse">
+    <div class="list-group">内容
+    </div>
+     </div>
+    <% end %>
+    </div>
+    </td>
+    </tr>
+  </table>
