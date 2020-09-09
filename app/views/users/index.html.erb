@@ -32,6 +32,11 @@
 
     <% @users.each do |user| %>
       <tr>
+      <td><% if current_user.admin? %>
+            <%= link_to "削除", user, method: :delete,
+                data: { confirm: "削除してよろしいですか？" },
+                class: "btn btn-primaly" %>
+          <% end %></td>
         <td><%= user.name %></td>
       </tr>
     <% end %>
