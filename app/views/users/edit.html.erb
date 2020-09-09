@@ -3,40 +3,6 @@
 
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
-  <%= form_with(model: @user,local: true) do |f| %>
-    <%= render 'shared/error_messages' %>
-
-    <%= f.label :name, class: "label-user--edit" %>
-    <%= f.text_field :name, class: "form-control" %>
-
-    <%= f.label :email, class: "label-user--edit" %>
-    <%= f.email_field :email, class: "form-control" %>
-
-    <%= f.label :department, class: "llabel-user--edit" %>
-    <%= f.text_field :department, class: "form-control" %>
-
-    <%= f.label :staff_id, class: "label-user--edit" %>
-    <%= f.number_field :staff_id, class: "form-control" %>
-
-    <%= f.label :card_id, class: "llabel-user--edit" %>
-    <%= f.text_field :card_id, class: "form-control"  %>
-
-    <%= f.label :password, class: "label-user--edit" %>
-    <%= f.password_field :password, class: "form-control" %>
-
-    <%= f.label :password_confirmation, class: "llabel-user--edit" %>
-    <%= f.password_field :password_confirmation, class: "form-control" %>
-
-    <%= f.label :basic_work_time, class: "label-user--edit" %>
-    <%= f.time_field :basic_work_time, class: "form-control" %>
-
-    <%= f.label :designation_work_start_time, class: "label-user--edit" %>
-    <%= f.time_field :designation_work_start_time, class: "form-control" %>
-
-    <%= f.label :designation_work_end_time, class: "label-user--edit" %>
-    <%= f.time_field :designation_work_end_time, class: "form-control" %>
-
-    <%= f.submit "更新", class: "btn btn-primary btn-block btn-user--edit" %>
-    <% end %>
+ 
   </div>
 </div>
