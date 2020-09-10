@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true) do |f| %>
+    <%= form_with(model: user, url: update_index_user_path(user), local: true, method: :patch) do |f| %>
     <%= render 'shared/error_messages',object: user %>
 
     <%= f.label :name, class: "label-#{yield(:class_text)}" %>
