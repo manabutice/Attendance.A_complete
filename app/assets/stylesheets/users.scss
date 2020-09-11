@@ -44,10 +44,24 @@
       color: black;
       border: 1px solid black;
     }
-
-
-
 }
+
+#table-attendance-index {
+
+  th {
+    vertical-align: bottom;
+    text-align: center;
+    margin-top: 20px;
+    background-color:blue ;
+    
+  }
+  td {
+    vertical-align: bmiddle;
+    text-align: center;
+    background-color:blue ;
+  }
+}
+
 
 /* 入力フォーム */
 

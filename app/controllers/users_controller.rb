@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info,:attendance_index, :destroy]
   before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info]
   before_action :correct_user, only: [ :edit,:update]
   before_action :set_one_month, only: :show
@@ -59,6 +59,7 @@ class UsersController < ApplicationController
   end 
 
   def attendance_index
+    @users = User.all
   end  
 
   
