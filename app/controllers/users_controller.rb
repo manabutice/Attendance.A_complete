@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   end 
 
   def working
-    @users = User.all
+    @users = Attendance.where.not(started_at: nil)
   end  
 
   

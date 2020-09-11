@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         patch 'update_index'
         get 'working'
         
+        get 'attendances/edit_one_month'
+      patch 'attendances/update_one_month'
       end
     resources :attendances, only: :update
   end
