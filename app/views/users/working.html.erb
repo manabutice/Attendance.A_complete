@@ -1,4 +1,4 @@
-<% provide(:title, "index") %>
+<% provide(:title, "working") %>
 <h1>出勤中社員一覧</h1>
 
 <div>
@@ -10,8 +10,10 @@
 
     <% @users.each do |user|%>
       <tr>
+      <%if  finished_at.blank?%>
         <td><%=user.staff_id %></td>
         <td><%=user.name %></td>
+      <% end%> 
       </tr>
     <%end%>  
   </table>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         get 'edit_basic_info'
         patch 'update_basic_info'
         patch 'update_index'
-        get 'attendance_index'
+        get 'working'
         
       end
     resources :attendances, only: :update
