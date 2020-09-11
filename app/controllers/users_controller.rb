@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   def edit_basic_info
   end 
 
-  def user_attendance_index
+  def attendance_index
   end  
 
   
