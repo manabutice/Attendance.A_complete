@@ -7,18 +7,11 @@
       <th>社員番号</th>
       <th>名前</th>
     </tr>
-
-    <% @users.each do |user|%>
-    <% user.attendances.each do |attendance| %>
-    <% if (Date.current == attendance.worked_on) && 
-      attendance.started_at != nil && attendance.finished_at == nil %>
-
-      <tr>
-        <td><%=user.staff_id %></td>
-        <td><%=user.name %></td>
-      </tr>
-        <%end%>
-      <%end%>
+      <% @working_users.each do |user|%>
+    <tr>
+      <td><%=user.staff_id %></td>
+      <td><%=user.name %></td>
+    </tr>
     <%end%>  
   </table>
 </div>
