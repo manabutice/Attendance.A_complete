@@ -59,11 +59,7 @@ class UsersController < ApplicationController
   end 
 
   def working 
-    @working_users = User.all.includes(:attendances)
-    Attendance.where.not(started_at: nil).each do |attendance|
-      if (Date.current == attendance.worked_on) && attendance.finished_at.nil?
-    end 
-  end 
+    @users = User.all.includes(:attendances)
 end 
 
 
