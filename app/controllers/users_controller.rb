@@ -59,6 +59,7 @@ class UsersController < ApplicationController
   end 
 
   def working 
+    # ユーザーモデルから全てのユーザーに紐づいた勤怠たちを代入
     @users = User.all.includes(:attendances)
 end 
 
