@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy,]
-  before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info,:working]
+  before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy]
+  before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info]
   before_action :correct_user, only: [ :edit,:update]
   before_action :set_one_month, only: :show
   before_action :admin_user, only: [:destroy, :edit_basic_info]
@@ -59,8 +59,10 @@ class UsersController < ApplicationController
   end 
 
   def working
-    @users = User.all
-  end  
+    @users = User.all.includes(:attendances)
+    Attendance.where.not(started_at: nil).each do |attendance|
+    end 
+  end 
 
   
 
@@ -68,7 +70,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
+      params.require(:user).permit(:name, :email, :department,:staff_id,:card_id, :password, :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
     end
 
   end
