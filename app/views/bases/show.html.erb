@@ -1,2 +1,26 @@
 <% provide(:title, "拠点一覧") %>
 <h1>拠点一覧</h1>
+
+<table class="table table-bordered table-condensed table-hover" id="bases">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>拠点番号</th>
+      <th>拠点名</th>
+      <th>拠点情報</th>
+    </tr>
+  </thead> 
+  <tbody  class="thead-lignt">
+    <tr>
+      <td> <%= link_to "修正","#",class: "btn btn-primary" %></td>
+      <td> <%= link_to "消去","#",class: "btn btn-primary" %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+ </table>
+
+ <p><%= link_to "拠点情報追加","#",class: "btn btn-primary" %></p>
