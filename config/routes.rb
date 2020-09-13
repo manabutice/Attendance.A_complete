@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get    '/login', to: 'sessions#new'
     post   '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
+
     resources :users do
       member do
         get 'edit_basic_info'
@@ -24,5 +25,6 @@ Rails.application.routes.draw do
       end
     resources :attendances, only: :update
     resources :bases
+    
   end
 end
