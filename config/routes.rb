@@ -17,5 +17,6 @@ Rails.application.routes.draw do
         get 'working'
       end
     resources :attendances, only: :update
+    resources :baces
   end
 end
