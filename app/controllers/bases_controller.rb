@@ -1,5 +1,5 @@
 class BasesController < ApplicationController
-  
+
   def new
   end
 
@@ -11,6 +11,9 @@ class BasesController < ApplicationController
 
   def update
   end
+
+  def index
+  end 
 
   def show
   end
