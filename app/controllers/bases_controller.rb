@@ -10,6 +10,7 @@ class BasesController < ApplicationController
       flash[:success]="新たな拠点情報を追加しました"
       redirect_to bases_url
     else
+      flash[:danger] = "拠点情報を追加に失敗しました。" + @base.errors.full_messages.join("、")
       render :new 
   end  
       
@@ -33,6 +34,7 @@ class BasesController < ApplicationController
     if @base.destroy
       flash[:success]="拠点情報を消去しました"
       redirect_to bases_url
+    else
     end 
   end
 
