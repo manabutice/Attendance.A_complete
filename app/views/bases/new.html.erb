@@ -2,7 +2,7 @@
 <h1>拠点情報追加</h1>
 
 <%= form_with(model: @base,local: true) do |f| %>
-    <%= render 'shared/error_messages',object: @baser%>
+    <%= render 'shared/error_messages',object: @base%>
 
     <%= f.label :number, class: "label-拠点情報追加" %>
     <%= f.number_field :number, class: "form-control" %>

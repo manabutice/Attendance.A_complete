@@ -21,7 +21,6 @@ class BasesController < ApplicationController
 
   def destroy
   end
-end
 
 
 
@@ -31,5 +30,5 @@ private
     def base_params
       params.require(:base).permit(:number, :name, :information)
     end
+  end    
 
-  end
