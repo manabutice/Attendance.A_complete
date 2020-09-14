@@ -1,2 +1,18 @@
-<h1>Bases#new</h1>
-<p>Find me in app/views/bases/new.html.erb</p>
+<% provide(:title, "拠点情報追加") %>
+<h1>拠点情報追加</h1>
+
+<%= form_with(model: @base,local: true) do |f| %>
+    <%= render 'shared/error_messages',object: @baser%>
+
+    <%= f.label :number, class: "label-拠点情報追加" %>
+    <%= f.number_field :number, class: "form-control" %>
+
+    <%= f.label :name, class: "label-拠点情報追加" %>
+    <%= f.text_field :name, class: "form-control" %>
+
+    <%= f.label :information, class: "label-拠点情報追加" %>
+    <%= f.text_area :information, class: "form-control" %>
+
+    
+    <%= f.submit "追加", class: "btn btn-primary btn-block btn-拠点情報追加" %>
+    <% end %>
