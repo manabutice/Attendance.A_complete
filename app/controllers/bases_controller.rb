@@ -11,7 +11,7 @@ class BasesController < ApplicationController
       redirect_to bases_url
     else
       flash[:danger] = "拠点情報を追加に失敗しました。<br>" + @base.errors.full_messages.join("<br>")
-      render :new 
+      redirect_to bases_url
   end  
       
   end
