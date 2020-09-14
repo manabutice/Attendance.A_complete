@@ -1,7 +1,7 @@
 <% provide(:title, "拠点情報一覧") %>
 <h1>拠点一覧</h1>
 
-<table class="table table-bordered table-condensed table-hover" id="bases">
+<table class= "table table-bordered table-condensed table-hover" id="bases">
   <thead>
     <tr>
       <th></th>
@@ -11,8 +11,8 @@
       <th>拠点情報</th>
     </tr>
   </thead> 
-  <tbody  class="thead-lignt">
-    <tr>
+  <tbody>
+    <tr class= "active">
       <td> <%= link_to "修正","#",class: "btn btn-primary" %></td>
       <td> <%= link_to "消去","#",class: "btn btn-primary" %></td>
       <td></td>
@@ -20,6 +20,6 @@
       <td></td>
     </tr>
   </tbody>
- </table>
+</table>
 
  <p><%= link_to "拠点情報追加","#",class: "btn btn-primary" %></p>
