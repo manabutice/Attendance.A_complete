@@ -1,0 +1,36 @@
+
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h1 class="modal-title">拠点情報追加</h1>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_with(model: @base,local: true) do |f| %>
+      <%= render 'shared/error_messages',object: @base%>
+
+      <%= f.label :number, class: "label-拠点情報追加" %>
+      <%= f.number_field :number, class: "form-control" %>
+
+      <%= f.label :name, class: "label-拠点情報追加" %>
+      <%= f.text_field :name, class: "form-control" %>
+
+      <%= f.label :information, class: "label-拠点情報追加" %>
+      <%= f.select :information,{'出勤':"出勤", '退勤':"退勤"}, { include_blank: "選択して下さい"},{ class: "form-control input-md", required: true} %>
+      
+      <%= f.submit "追加", class: "btn btn-primary btn-block btn-拠点情報追加" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
