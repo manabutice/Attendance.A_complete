@@ -28,7 +28,12 @@ class BasesController < ApplicationController
   def show
   end
 
-  def destroy
+  def destroy 
+    @base = Base.find(params[:id])
+    if @base.destroy
+      flash[:success]="拠点情報を消去しました"
+      redirect_to bases_url
+    end 
   end
 
 
