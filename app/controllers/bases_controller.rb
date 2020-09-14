@@ -5,6 +5,14 @@ class BasesController < ApplicationController
   end
 
   def create
+    @base = Base.new(base_params)
+    if @base.save
+      flash[:success]="新たな拠点情報を追加しました"
+      redirect_to bases_url
+    else
+      render :new 
+  end  
+      
   end
 
   def edit
