@@ -1,6 +1,7 @@
 class BasesController < ApplicationController
 
   def new
+    @base = Base.new
   end
 
   def create
