@@ -22,6 +22,7 @@ class BasesController < ApplicationController
   end
 
   def index
+    @bases = Base.all
   end 
 
   def show
