@@ -20,9 +20,9 @@
 <form class="inline">
   <%= form_with url: csv_import_users_path ,local: true do |f| %>
     <%= f.file_field :upload_file, class:"form-control-file"%>
+    <%= f.submit "CSV出力",class: "btn btn-primary" %>
   <% end %>
 </form>  
-<%= link_to "CSV出力", csv_import_users_path, class: "btn btn-primary" %>
 
 
   <% @users.each do |user| %>
