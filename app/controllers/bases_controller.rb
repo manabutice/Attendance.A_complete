@@ -27,7 +27,7 @@ class BasesController < ApplicationController
       redirect_to bases_url
     else
       redirect_to bases_url
-    
+    end 
   end
 
   def index
