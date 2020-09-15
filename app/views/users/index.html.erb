@@ -18,11 +18,11 @@
 
 
 <form class="inline">
-  <%= form_with url: users_path(format: :csv),method: :get,local: true do |f| %>
+  <%= form_with url: csv_import_users_path ,local: true do |f| %>
     <%= f.file_field :upload_file, class:"form-control-file"%>
   <% end %>
 </form>  
-<%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %>
+<%= link_to "CSV出力", csv_import_users_path, class: "btn btn-primary" %>
 
 
   <% @users.each do |user| %>
