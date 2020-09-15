@@ -9,6 +9,6 @@
 
       <%= f.label :information, class: "label-label-#{yield(:class_text)}" %>
       <%= f.select :information,{'出勤':"出勤", '退勤':"退勤"}, { include_blank: "選択して下さい"},{ class: "form-control input-md", required: true} %>
-      
+
       <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-label-#{yield(:class_text)}" %>
-      <% end %>
+<% end %>
