@@ -1,0 +1,14 @@
+<%= form_with(model: @base,local: true) do |f| %>
+      <%= render 'shared/error_messages',object: @base%>
+
+      <%= f.label :number, class: "label-拠点情報追加" %>
+      <%= f.number_field :number, class: "form-control" %>
+
+      <%= f.label :name, class: "label-拠点情報追加" %>
+      <%= f.text_field :name, class: "form-control" %>
+
+      <%= f.label :information, class: "label-拠点情報追加" %>
+      <%= f.select :information,{'出勤':"出勤", '退勤':"退勤"}, { include_blank: "選択して下さい"},{ class: "form-control input-md", required: true} %>
+      
+      <%= f.submit "追加", class: "btn btn-primary btn-block btn-拠点情報追加" %>
+      <% end %>

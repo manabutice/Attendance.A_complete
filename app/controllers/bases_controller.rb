@@ -17,6 +17,7 @@ class BasesController < ApplicationController
   end
 
   def edit
+    @base = Base.find(params[:id])
   end
 
   def update
