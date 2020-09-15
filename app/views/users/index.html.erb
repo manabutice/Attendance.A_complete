@@ -16,13 +16,13 @@
     </div>
   </div>
 
+
 <form class="inline">
-  <%= form_with(model: @user,local: true) do |f| %>
+  <%= form_with url: users_path(format: :csv),method: :get,local: true do |f| %>
     <%= f.file_field :upload_file, class:"form-control-file"%>
-    <%= f.submit "CSVをインポート", class: "btn btn-md btn-primary" %>
   <% end %>
 </form>  
-
+<%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %>
 
 
   <% @users.each do |user| %>

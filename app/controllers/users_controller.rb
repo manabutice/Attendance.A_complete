@@ -10,8 +10,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all 
+    @users = User.all
   end  
+
+  
+
+
+
 
   def update_index
     if @user.update_attributes(user_params)
