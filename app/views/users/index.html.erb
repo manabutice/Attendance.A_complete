@@ -19,7 +19,7 @@
 <form class="inline">
   <%= form_with(model: @user,local: true) do |f| %>
     <%= f.file_field :upload_file, class:"form-control-file"%>
-    <%= link_to "CSVをインポート", '#', class: "btn btn-md btn-primary" %>
+    <%= f.submit "CSVをインポート", class: "btn btn-md btn-primary" %>
   <% end %>
 </form>  
 
