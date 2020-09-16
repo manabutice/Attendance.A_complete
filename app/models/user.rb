@@ -24,7 +24,7 @@ class User < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << csv_users
       all.each do |cont|
-        csv << csv_users.map{|user| cont.send(attr)}
+        csv << csv_users.map{|attr| user.send(attr)}
       end
     end
   end
