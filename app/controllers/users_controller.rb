@@ -11,19 +11,15 @@ class UsersController < ApplicationController
 
   def index
       @users = User.all
+      # リクエストで指定されたフォーマットによって処理を分ける事が出来るメソッド
       respond_to do |format|
+      format.html
       format.csv { send_data @users.generate_csv, filename: "users-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
     end
   end
 
 
-  def import
-    # fileはtmpに自動で一時保存される
-    User.import(params[:file])
-    redirect_to users_url
-  end
-
-
+  
 
 
   def update_index
