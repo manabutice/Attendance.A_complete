@@ -8,7 +8,7 @@ CSV.generate do |csv|
   @users.each do |user|
     column_values = [
       user.name,
-      user.age,
+      user.email,
       user.department
       user.staff_id
       user.card_id 
