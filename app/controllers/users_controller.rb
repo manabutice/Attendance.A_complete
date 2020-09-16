@@ -11,16 +11,9 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    respond_to do |format|
-      format.html do
-          #html用の処理を書く
-      end 
-      format.csv do
-          #csv用の処理を書く
-      endw
-    end
-  end
-end
+    
+      end
+
 
   def import
     # fileはtmpに自動で一時保存される
