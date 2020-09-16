@@ -18,7 +18,6 @@ CSV.generate do |csv|
       user.superior
       user.admin
       user.password
-
     ]
 
     csv << column_values
