@@ -22,9 +22,9 @@ class User < ApplicationRecord
 
   def self.generate_csv
     CSV.generate(headers: true) do |csv|
-      csv << csv_users
-      all.each do |cont|
-        csv << csv_users.map{|attr| user.send(attr)}
+      csv << csv_attributes
+      all.each do |user|
+        csv << csv_attributes.map{|attr| user.send(attr)}
       end
     end
   end

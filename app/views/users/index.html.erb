@@ -17,12 +17,12 @@
   </div>
 
 
-<form class="inline">
-  <%= form_with(model: @user,local: true) do |f| %>
-    <%= f.file_field :upload_file, class:"form-control-file"%>
-  <% end %>
-<%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %>
-</form>  
+<div class="csv">
+  <%= form_tag import_tasks_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "インポート" %>
+<% end %>
+</div>  
 
 
   <% @users.each do |user| %>
