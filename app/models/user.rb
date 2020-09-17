@@ -16,17 +16,14 @@ class User < ApplicationRecord
 
 
   def self.import(file)
-    CSV.foreach(file.csv, headers: true) do |row|
-      # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
-      if user = find_by(id: row["id"]) || new
-      # CSVからデータを取得し、設定する
+    CSV.foreach(file.path, encoding: 'Shift_JIS:UTF-8',headers: true) do |row|
+      user = find_by(id: row["id"]) || new
       user.attributes = row.to_hash.slice(*updatable_attributes)
-      user.save
-      end
+      user.save!
     end
   end
 
-  # 更新を許可するカラムを定義
+ 
   def self.updatable_attributes
       ["name","email","department","staff_id","card_id", "basic_work_time", 
         "designation_work_start_time", "designation_work_end_time","superior","admin","password"]

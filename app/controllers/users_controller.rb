@@ -11,11 +11,24 @@ class UsersController < ApplicationController
 
   def index
       @users = User.all
-  end
+      respond_to do |format|
+      format.html do
+      end
+      format.csv do
+        send_data render_to_string,filename:"(ファイル名).csv",type: :csv
+      end
+    end
+  end 
 
   def import
-    User.import(params[:file])
-    redirect_to users_url
+    if params[:file].blank?
+      flash[:danger]= "csvファイルを選択してください"
+      redirect_to users_url
+    else
+      User.import(params[:file]) 
+      flash[:danger]= "インポートが完了しました"
+      redirect_to users_url
+    end
   end
 
 
