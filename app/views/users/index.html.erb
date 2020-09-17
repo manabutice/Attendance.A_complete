@@ -18,7 +18,7 @@
 
 
 <div class="csv">
-  <%= form_tag import_users_path, method: :post,multipart: true do |f| %>
+  <%= form_tag import_users_path,multipart: true do |f| %>
     <%= file_field_tag :file %>
     <%= submit_tag "CSV出力",class: "btn btn-primary"%>
 <% end %>
