@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       format.html do
       end
       format.csv do
-        send_data render_to_string,filename:"(ファイル名).csv",type: :csv
+        send_data render_to_string,filename:"original_filename.csv",type: :csv
       end
     end
   end 
@@ -24,9 +24,13 @@ class UsersController < ApplicationController
     if params[:file].blank?
       flash[:danger]= "csvファイルを選択してください"
       redirect_to users_url
+    elsif 
+      File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger]= "csv以外は出力できません"
+      redirect_to users_url
     else
       User.import(params[:file]) 
-      flash[:danger]= "インポートが完了しました"
+      flash[:success]= "インポートが完了しました"
       redirect_to users_url
     end
   end
