@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       redirect_to users_url
     elsif 
       File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger]= "csv以外は出力できません"
+      flash[:danger]= "csvファイル以外は出力できません"
       redirect_to users_url
     else
       User.import(params[:file]) 
