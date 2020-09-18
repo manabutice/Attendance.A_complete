@@ -15,14 +15,14 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 
+
   def self.import(file)
     CSV.foreach(file.path, encoding: 'Shift_JIS:UTF-8',headers: true) do |row|
       user = find_by(id: row["id"]) || new
       user.attributes = row.to_hash.slice(*updatable_attributes)
-      user.save!
+      user.save!(:validation => false)
     end
   end
-
 
   def self.updatable_attributes
       ["name","email","department","staff_id","card_id", "basic_work_time", 

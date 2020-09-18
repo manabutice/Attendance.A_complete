@@ -33,10 +33,13 @@ class UsersController < ApplicationController
       flash[:success]= "インポートが完了しました"
       redirect_to users_url
     end
+
+  rescue ActiveRecord::RecordInvalid
+      flash[:danger]= "インポートに失敗しました"
+      redirect_to users_url
   end
-
-
   
+
 
 
   def update_index
