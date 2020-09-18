@@ -35,8 +35,11 @@ class UsersController < ApplicationController
     end
 
   rescue ActiveRecord::RecordInvalid
-      flash[:danger]= "インポートに失敗しました"
-      redirect_to users_url
+    flash[:danger]= "インポートに失敗しました"
+    redirect_to users_url
+  rescue ActiveRecord::RecordNotUnique
+    flash[:danger]= "既にインポート済です"
+    redirect_to users_url
   end
   
 
