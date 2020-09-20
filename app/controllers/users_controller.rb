@@ -7,6 +7,11 @@ class UsersController < ApplicationController
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
+    @attendances = Attendance.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data Attendance.to_csv, type: 'text/csv; charset=shift_jis', filename: "attendances.csv" }
+    end
   end
 
   def index
