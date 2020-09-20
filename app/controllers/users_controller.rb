@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @attendances = Attendance.all
     respond_to do |format|
       format.html
-      format.csv { send_data Attendance.to_csv, type: 'text/csv; charset=shift_jis', filename: "#{@user.name}.csv" }
+      format.csv { send_data Attendance.to_csv, type: 'text/csv; charset=shift_jis', filename: "#{@user.name}：#{l(@first_day, format: :middle)}分勤怠.csv" }
     end
   end
 
