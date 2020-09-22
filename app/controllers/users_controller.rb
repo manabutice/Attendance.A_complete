@@ -9,7 +9,8 @@ class UsersController < ApplicationController
     @worked_sum = @attendances.where.not(started_at: nil).count
     respond_to do |format|
       format.html
-      format.csv { send_data render_to_string, type: 'text/csv; charset=shift_jis', filename: "#{@user.name}：#{l(@first_day, format: :short)}月分.csv" }
+      filename = @user.name + "：" + l(@first_day, format: :middle)
+      format.csv { send_data render_to_string, type: 'text/csv; charset=shift_jis', filename: "#{filename}.csv" }
     end
   end
 
