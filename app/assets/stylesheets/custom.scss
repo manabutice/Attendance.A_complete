@@ -1,6 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.bootstrap-date-only-width {
+  display: inline-block;
+  width: auto;
+}
 /* universal */
 
 body {

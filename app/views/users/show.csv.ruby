@@ -15,3 +15,5 @@ CSV.generate(encoding: Encoding::SJIS, write_headers: true, force_quotes: true) 
       csv << values
     end   
   end 
+
+  
