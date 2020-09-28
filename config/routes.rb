@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'bases/create'
   get 'bases/edit'
   get 'bases/update'
-  get 'bases/shoe'
+  get 'bases/show'
   get 'bases/destroy'
     root 'static_pages#top'
     get '/signup', to: 'users#new'
