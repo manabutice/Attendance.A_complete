@@ -59,4 +59,10 @@ private
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
+
+    # 残業申請モーダルの情報
+    def overtime_params
+      params.require(:user).permit(attendances: [:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check])[:attendances]
+    end
+
   end   
