@@ -100,8 +100,8 @@ class UsersController < ApplicationController
     @users = User.all.includes(:attendances)
 end 
 
- def overtime_request
- end
+  def overtime_request
+  end
   
 
 
