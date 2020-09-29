@@ -1,0 +1,49 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">残業申請</h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+      <%= form_with(model: @attendance, url: attendances_edit_overtime_request_user_path(@attendance), local: true, method: :patch) do |f| %>
+        <table class="table table-bordered table-condensed user-table">
+          <thead>
+            <th>日付</th>
+            <th>曜日</th>
+            <th>終了予定時間</th>
+            <th>翌日</th>
+            <th>業務処理内容</th>
+            <th>指示者確認
+              <div class="maru size_small black">       
+                <div class="letter3">印
+              </div> 
+            </th>
+          </thead>
+          <tbody>
+            <% css_class = 
+            case $days_of_the_week[day.worked_on.wday]
+              when '土'
+                'text-primary'
+              when '日'
+                'text-danger'
+              end
+              %>
+            <td><%= l(day.worked_on, format: :short) %></td>
+            <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
+            <td><%= f. time_select :overtime_finished_at,{class: "form-control bootstrap-date-only-width"} %></td>
+            <td><%= f.check_box :tomorrow,id: "tomorrow" %></td>
+            <td><%= f.text_fild :overtime_work, class:"form-control" %></td>
+            <td><%= f.select :indicater_check,{'なし':1, '申請中':2, '承認':3, '否認':4},{ class: 'form-control input-sm' , required: true } %></td>
+          </tbody>
+        </table>
+            <%= f.submit "変更を送信する", class: "btn btn-primary btn-block" %>
+      <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
