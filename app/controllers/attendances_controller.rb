@@ -44,6 +44,7 @@ class AttendancesController < ApplicationController
   end
 
   def edit_overtime_request
+    @attendance = @user.attendances.find_by(worked_on: @day)
   end
 
   def update_overtime_request
