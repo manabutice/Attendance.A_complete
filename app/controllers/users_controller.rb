@@ -99,6 +99,16 @@ class UsersController < ApplicationController
     # ユーザーモデルから全てのユーザーに紐づいた勤怠たちを代入
     @users = User.all.includes(:attendances)
 end 
+
+
+def edit_overtime_request
+  @attendance = Attendance.find(params[:id])
+  @user = User.find(@attendance.user_id)
+end
+
+def update_overtime_request
+end
+
   
 
 
@@ -107,6 +117,11 @@ end
     def user_params
       params.require(:user).permit(:name, :email, :department,:staff_id,:card_id, :password, 
         :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
+    end
+
+     # 残業申請モーダルの情報
+     def overtime_params
+      params.require(:user).permit(attendances: [:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check])
     end
 
   end

@@ -45,13 +45,6 @@ class AttendancesController < ApplicationController
 
 
 
-  def edit_overtime_request
-    @attendance = Attendance.find(params[:id])
-    @user = User.find(@attendance.user_id)
-  end
-
-  def update_overtime_request
-  end
   
   
   
@@ -64,8 +57,5 @@ private
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
 
-    # 残業申請モーダルの情報
-    def overtime_params
-      params.require(:user).permit(attendances: [:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check])
-    end
+   
   end   
