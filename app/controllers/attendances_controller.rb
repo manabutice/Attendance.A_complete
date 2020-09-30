@@ -46,7 +46,7 @@ class AttendancesController < ApplicationController
 
 
   def edit_overtime_request
-    @attendance = Attendance.find(params[:d])
+    @attendance = Attendance.find(params[:id])
     @user = User.find(@attendance.user_id)
   end
 
