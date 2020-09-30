@@ -23,8 +23,8 @@ Rails.application.routes.draw do
         patch 'attendances/update_one_month'
 
         # 残業申請モーダル
-        get 'attendances/edit_overtime_request'
-        patch 'attendances/update_overtime_request'
+        get 'edit_overtime_request'
+        patch 'update_overtime_request'
         
       end
       collection do
