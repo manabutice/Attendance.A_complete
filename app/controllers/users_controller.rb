@@ -102,11 +102,12 @@ end
 
 
 def edit_overtime_request
-  @attendance = Attendance.find(params[:id])
-  @user = User.find(@attendance.user_id)
+ ＠attendance = @user.attendaces.find_by(workeda_on: @day)
+ @day = Date.parse(params[:day])
 end
 
 def update_overtime_request
+  ＠attendance = @user.attendaces.find_by(workeda_on: @day)
 end
 
   

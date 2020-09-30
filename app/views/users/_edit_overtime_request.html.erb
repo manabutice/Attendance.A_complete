@@ -9,7 +9,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-      <%= form_with(model: @attendance, url: attendances_edit_overtime_request_user_path(@attendance), local: true, method: :patch) do |f| %>
+      <%= form_with(model: @attendance, url: edit_overtime_request_user_path(@attendance), local: true, method: :patch) do |f| %>
         <table class="table table-bordered table-condensed overtime-table">
           <thead>
             <th>日付</th>
@@ -24,6 +24,8 @@
             </th>
           </thead>
           <tbody>
+          <%= @attendances.each do |day| %>
+            <%= f.filds_for "attendances[]",day do |attendance|%>
             <% css_class = 
             case $days_of_the_week[day.worked_on.wday]
               when '土'
@@ -41,6 +43,8 @@
           </tbody>
         </table>
             <%= f.submit "変更を送信する", class: "btn btn-primary btn-block" %>
+            <% end %>
+        <% end %>
       <% end %>
         </div>
       </div>
