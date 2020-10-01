@@ -32,10 +32,10 @@
               %>
             <td><%= l(@attendance.worked_on, format: :short) %></td>
             <td class="<%= css_class %>"><%= $days_of_the_week[@attendance.worked_on.wday] %></td>
-            <td><%= f.time_select :overtime_finished_at,{class: "form-control bootstrap-date-only-width"} %></td>
+            <td><%= f.time_select :overtime_finished_at, {include_blank: true}, {class: "form-control bootstrap-date-only-width"} %></td>
             <td><%= f.check_box :tomorrow,id: "tomorrow" %></td>
-            <td><%= f.text_field :overtime_work, class:"form-control" %></td>
-            <td><%= f.select :indicater_check,{'なし':1, '申請中':2, '承認':3, '否認':4},{ class: 'form-control input-sm' , required: true } %></td>
+            <td><%= f.text_field :overtime_work, {class: "form-control"} %></td>
+            <td><%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: '選択して下さい'}, { class: 'form-control input-sm'} %></td>
           </tbody>
         </table>
         <%= f.submit "変更を送信する", class: "btn btn-primary btn-block" %>
