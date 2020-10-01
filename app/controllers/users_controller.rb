@@ -101,14 +101,7 @@ class UsersController < ApplicationController
 end 
 
 
-def edit_overtime_request
- ＠attendance = @user.attendaces.find_by(workeda_on: @day)
- @day = Date.parse(params[:day])
-end
 
-def update_overtime_request
-  ＠attendance = @user.attendaces.find_by(workeda_on: @day)
-end
 
   
 
@@ -120,9 +113,5 @@ end
         :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
     end
 
-     # 残業申請モーダルの情報
-     def overtime_params
-      params.require(:user).permit(attendances: [:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check])
-    end
-
+    
   end
