@@ -117,3 +117,38 @@ p {
   margin: 15px 0;
   width: 30%;
 }
+
+
+/* 残業申請モーダルウインドウ */
+.overtime_request {
+  th {
+text-align: center;
+  } 
+  td {
+    text-align: center;
+  }
+}
+
+.line tr:nth-child(odd) td{
+  background: #f8f8f8;
+  text-align: center;
+}
+
+.maru {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.size_small{
+  width: 18px;
+  height: 18px;
+}
+.letter3 {
+  font-size: 0.7em;
+  line-height: 1.5em;
+}
+.black {
+  color: black;
+  border: 1px solid black;
+}

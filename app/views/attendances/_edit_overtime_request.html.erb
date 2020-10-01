@@ -9,7 +9,7 @@
     <div class="modal-body">
       <%= form_with(model: @attendance , url: update_overtime_request_user_attendance_path(@user, @attendance) , method: :patch , local: true) do |f| %>
         <table class="table table-bordered table-condensed overtime-table">
-          <thead>
+          <thead class="overtime_request">
             <th>日付</th>
             <th>曜日</th>
             <th>終了予定時間</th>
@@ -21,7 +21,7 @@
               </div> 
             </th>
           </thead>
-          <tbody>
+          <tbody class="line">
             <% css_class = 
             case $days_of_the_week[@attendance.worked_on.wday]
               when '土'
