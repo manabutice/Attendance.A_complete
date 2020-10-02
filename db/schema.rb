@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(version: 2020_09_30_000302) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "overtime_finished_at"
+    t.boolean "tomorrow"
     t.datetime "overtime_worked_on"
     t.string "overtime_work"
-    t.string "indicater_check"
+    t.boolean "indicater_check"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -46,9 +47,9 @@ ActiveRecord::Schema.define(version: 2020_09_30_000302) do
     t.string "department"
     t.string "staff_id"
     t.string "card_id"
-    t.datetime "basic_work_time", default: "2020-09-29 23:00:00"
-    t.datetime "designation_work_start_time", default: "2020-09-30 00:00:00"
-    t.datetime "designation_work_end_time", default: "2020-09-30 09:00:00"
+    t.datetime "basic_work_time", default: "2020-10-01 23:00:00"
+    t.datetime "designation_work_start_time", default: "2020-10-02 00:00:00"
+    t.datetime "designation_work_end_time", default: "2020-10-02 09:00:00"
     t.boolean "admin", default: false
     t.string "remember_digest"
     t.boolean "superior", default: false
