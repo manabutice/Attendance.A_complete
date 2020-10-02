@@ -16,6 +16,12 @@ class AttendancesController < ApplicationController
   def update_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
+    if @attendance.save
+      flash[:success]="内容を送信しました"
+      redirect_to @user
+    else
+      render :edit_overtime_request_user_attendance_url
+    end 
   end
 
 
