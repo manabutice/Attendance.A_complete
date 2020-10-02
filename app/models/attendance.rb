@@ -4,9 +4,9 @@ class Attendance < ApplicationRecord
   validates :worked_on, presence: true
   validates :note, length: { maximum: 50 }
 
-  # 残業申請バリデーション
-  validates :overtime_finished_at, presence: true
-  validates :indicater_check, presence: true
+  # # 残業申請バリデーション
+  # validates :overtime_finished_at, presence: true
+  # validates :indicater_check, presence: true
   
 
   validate :finished_at_is_invalid_without_a_started_at
