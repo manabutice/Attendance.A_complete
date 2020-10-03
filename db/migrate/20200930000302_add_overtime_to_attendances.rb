@@ -5,5 +5,6 @@ class AddOvertimeToAttendances < ActiveRecord::Migration[5.2]
     add_column :attendances, :overtime_worked_on, :datetime
     add_column :attendances, :overtime_work, :string
     add_column :attendances, :indicater_check, :boolean
+    add_column :attendances, :indicater_check_superior, :boolean
   end
 end
