@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
+    all = Attendance.all
+    @overtime = all.where(indicater_check_superior: "申請中").count
     respond_to do |format|
       format.html
       filename = @user.name + "：" + l(@first_day, format: :middle) + "分" + " " + "勤怠"

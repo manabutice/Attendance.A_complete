@@ -22,8 +22,8 @@ module AttendancesHelper
     format("%.2f", (((finish - start) / 60) / 60.0))
   end
 
-  def overtime_worked_on(endtime, finish)
-    format("%.2f", (((endtime - finish) / 60) / 60.0))
+  def overtime_worked_on
+    format("%.2f", (((overtime_finished_at - designation_work_end_time ) / 60) / 60.0))
   end
 
 end

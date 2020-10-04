@@ -116,12 +116,12 @@
           <td><%= day.note %></td>
           <td><%= day.overtime_finished_at.try(:strftime,"%H") %></td>
           <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
-          <td><%= day.overtime_worked_on %></td>
+          <td><%=  %></td>
           <td><%= day.overtime_work %></td>
           <td>
             <% if day.indicater_check.present? %>
-              <%= "申請中" %>
-            <% end %>  
+              <%= "#{day.indicater_check}に残業#{day.indicater_check_superior}" %>
+            <% end %>   
           </td>
         </tr>
       <% end %>
