@@ -118,7 +118,11 @@
           <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
           <td><%= day.overtime_worked_on %></td>
           <td><%= day.overtime_work %></td>
-          <td><%= day.indicater_check %></td>
+          <td>
+            <% if day.indicater_check.present? %>
+              <%= "申請中" %>
+            <% end %>  
+          </td>
         </tr>
       <% end %>
     </tbody>
