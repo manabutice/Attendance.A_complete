@@ -11,6 +11,8 @@ class UsersController < ApplicationController
     all = Attendance.all
     # 全てのAttendanceの情報から、指示者確認が”申請中”になっているものを@overtimeに代入
     @overtime = all.where(indicater_check_superior: "申請中").count
+    
+
     respond_to do |format|
       format.html
       filename = @user.name + "：" + l(@first_day, format: :middle) + "分" + " " + "勤怠"
