@@ -30,9 +30,13 @@
 
 <div class="notice-group">
   <% if current_user.superior? %>
-    <p clas="notice">【<%= link_to "所属長承認申請のお知らせ","#",class: "notice"%>】</p>
-    <p clas="notice">【<%= link_to "勤怠変更申請のお知らせ","#",class: "notice"%>】</p>
-    <p clas="notice">【<%= link_to "残業申請のお知らせ","#",class: "notice"%>】</p>
+  <% if @overtime >=1  %>
+      <p><%= link_to  "【所属長承認申請のお知らせ】", "#" %></p>
+    <% else %>
+    <p clas="notice">【所属長承認申請のお知らせ】</p>
+    <% end %> 
+    <p clas="notice">【勤怠変更申請のお知らせ】</p>
+    <p clas="notice">【残業申請のお知らせ】</p>
   <% end %>
 </div>
 

@@ -37,7 +37,7 @@
             <td><%= f.time_select :overtime_finished_at, {include_blank: true}, {class: "form-control bootstrap-date-only-width",required: true } %></td>
             <td><%= f.check_box :tomorrow,id: "tomorrow" %></td>
             <td><%= f.text_field :overtime_work, {class: "form-control",required: true } %></td>
-            <td><%= f.collection_select(:indicater_check, @superior, :name, :name, {prompt: ""}, {class: "form-control input-sm" ,required: true })%></td>
+            <td><%= f.collection_select(:indicater_check, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm" ,required: true })%></td>
           </tbody>
         </table>
         <%= f.submit "変更を送信する", class: "btn btn-primary btn-block" %>
