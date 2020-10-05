@@ -10,6 +10,7 @@ class AttendancesController < ApplicationController
   def edit_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
+    # ユーザーテーブルから、superiorがtrueになっているものを@superiorで代入
     @superior = User.where(superior: true)
   end
 
@@ -76,6 +77,7 @@ private
 
     # 残業申請モーダルの情報
     def overtime_params
+      # attendanceテーブルの（残業終了予定時間,翌日、残業内容、指示者確認（どの上長か）、指示者確認（申請かどうか））
       params.require(:attendance).permit(:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check,:indicater_check_superior)
     end
 
