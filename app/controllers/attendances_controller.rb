@@ -11,7 +11,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
     # ユーザーテーブルから、superiorがtrueになっているものを@superiorに代入
-    @superior = User.where(superior: true)
+    @superior = User.where(superior: true).where.not( id: current_user.id )
   end
 
   
