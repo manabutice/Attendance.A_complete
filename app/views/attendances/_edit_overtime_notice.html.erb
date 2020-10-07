@@ -48,9 +48,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= f.select :boss,{'なし':1, '申請中':2, '承認':3, '否認':4}, { prompt: "選択して下さい"}, { class: 'form-control input-sm' , required: true } %></td>
+            <td><%= f.check_box :change,id: "change" %></td>
+            <td><%= link_to "確認", "#", class: "btn btn-primary" %></td>
           </tbody>
         </table>
         <div class="center">
