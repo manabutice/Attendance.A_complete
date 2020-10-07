@@ -10,7 +10,7 @@ class AttendancesController < ApplicationController
   def edit_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
-    # ユーザーテーブルから、superiorがtrueになっているものを@superiorに代入
+    # ユーザーテーブルから、superiorがtrueになっているもので自分のuser_id以外のものを@superiorに代入
     @superior = User.where(superior: true).where.not( id: current_user.id )
   end
 

@@ -25,6 +25,9 @@ Rails.application.routes.draw do
         # 残業申請モーダル
         get 'edit_overtime_request'
         patch 'update_overtime_request'
+
+        get 'edit_overtime_notice'
+        patch 'update_overtime_notice'
       end
     end 
   end
