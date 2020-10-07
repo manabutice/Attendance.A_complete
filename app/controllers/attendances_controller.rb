@@ -12,6 +12,7 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find(params[:id])
     # ユーザーテーブルから、superiorがtrueになっているものを@superiorに代入
     @superior = User.where(superior: true)
+    
   end
 
   

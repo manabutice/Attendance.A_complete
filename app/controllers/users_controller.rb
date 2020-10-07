@@ -9,9 +9,9 @@ class UsersController < ApplicationController
     @worked_sum = @attendances.where.not(started_at: nil).count
     # 全てのAttendanceの情報を取り出す
     all = Attendance.all
-    # 全てのAttendanceの情報から、指示者確認が”申請中”になっているものを@overtimeに代入
-    @overtime = all.where(indicater_check_superior: "申請中").count
-    
+    # 全てのAttendanceの情報から、指示者確認が”申請中”になっているものの件数を@overtimeに代入
+    @overtime = all.where(indicater_check_superior: "申請中").where(attendances: {indicater_check: @user.name}).count
+  
     respond_to do |format|
       format.html
       filename = @user.name + "：" + l(@first_day, format: :middle) + "分" + " " + "勤怠"

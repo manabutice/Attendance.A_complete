@@ -30,6 +30,8 @@
 
 <div class="notice-group">
   <% if current_user.superior? %>
+  
+
     <p clas="notice">【所属長承認申請のお知らせ】</p>
     <p clas="notice">【勤怠変更申請のお知らせ】</p>
 
@@ -39,7 +41,8 @@
         </p>
       <% else %>
         <p clas="notice">【残業申請のお知らせ】</p>
-      <% end %> 
+        >
+    <% end %> 
   <% end %>
 </div>
 
