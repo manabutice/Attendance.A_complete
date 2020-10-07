@@ -1,0 +1,62 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%
+=begin%>
+ 申請を送ったuseerの名前を出す 
+<%
+=end%>
+      <h3 align="center" class="modal-title"><%= "【@userからの残業申請】" %></h3>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @attendance , url: "#" , method: :patch , local: true) do |f| %>
+      
+      <%
+=begin%>
+ <%= f.hidden_field :indicater_check_superior, :value => "申請中" %> 
+<%
+=end%>
+        <table class="table table-bordered table-condensed overtime_notice-table">
+          <thead class="overtime_notice">
+            <th>日付</th>
+            <th>曜日</th>
+            <th>終了予定時間</th>
+            <th>指定勤務終了時間</th>
+            <th>業務処理内容</th>
+            <th>指示者確認
+              <div class="maru size_small black">       
+                <div class="letter3">印</div>
+              </div> 
+            </th>
+            <th>変更</th>
+            <th>勤務を確認する</th>
+          </thead>
+          <tbody class="line">
+            <% css_class = 
+            case $days_of_the_week[@attendance.worked_on.wday]
+              when '土'
+                'text-primary'
+              when '日'
+                'text-danger'
+              end
+              %>
+            <td><%= l(@attendance.worked_on, format: :short) %></td>
+            <td class="<%= css_class %>"><%= $days_of_the_week[@attendance.worked_on.wday] %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tbody>
+        </table>
+        <div class="center">
+          <%= f.submit "変更を送信する", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -34,10 +34,18 @@
     <p clas="notice">【勤怠変更申請のお知らせ】</p>
 
     <% if @overtime >= 1  %>
-      <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,day), class: "notice" %><span class="red_box"><%= "#{@overtime}件の通知があります"%></span></p>
+
+    <%
+=begin%>
+ パスは@userの残業申請なので@overtimeにした 
+<%
+=end%>
+      <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,@overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@overtime}件の通知があります"%></span></p>
+      
     <% else %>
       <p clas="notice">【残業申請のお知らせ】</p>
     <% end %> 
+    
   <% end %>
 </div>
 
@@ -164,7 +172,6 @@
     </tfoot> 
   </table>
 </div>
-
 
 <div id= "edit-overtime-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id= "edit-overtime-notice" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

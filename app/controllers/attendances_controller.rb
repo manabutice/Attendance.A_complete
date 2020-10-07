@@ -7,6 +7,26 @@ class AttendancesController < ApplicationController
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
 
 
+  def edit_overtime_notice
+    @user = User.find(params[:user_id])
+    @attendance = Attendance.find(params[:id])
+  end
+
+
+  def update_overtime_notice
+  end
+
+
+
+
+
+
+
+
+
+
+
+
   def edit_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
@@ -23,6 +43,9 @@ class AttendancesController < ApplicationController
       redirect_to user_url(@user)
     end  
   end
+
+
+
 
 
   def update
@@ -80,5 +103,12 @@ private
       # attendanceテーブルの（残業終了予定時間,翌日、残業内容、指示者確認（どの上長か）、指示者確認（申請かどうか））
       params.require(:attendance).permit(:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check,:indicater_check_superior)
     end
+
+    # 残業申請お知らせモーダルの情報
+    def overtime_notice_params
+      # attendanceテーブルの（指示者確認,変更、勤怠を確認する）
+      params.require(:attendance).permit(:indicater_reply, :change, :verification)
+    end
+
 
   end   
