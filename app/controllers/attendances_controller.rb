@@ -9,7 +9,7 @@ class AttendancesController < ApplicationController
 
   def edit_overtime_notice
     @user = User.find(params[:user_id])
-    @attendance = Attendance.find(params[:id])
+    @attendances = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).order(:user_id, :worked_on).group_by(&:user_id)
   end
 
 
