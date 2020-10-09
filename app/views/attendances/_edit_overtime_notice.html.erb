@@ -13,6 +13,7 @@
           <h3 align="center" class="modal-title"><%= "【#{user.name}からの残業申請】" %></h3>
       
           <table class="table table-bordered table-condensed overtime_notice-table">
+
             <thead class="overtime_notice">
               <th>日付</th>
               <th>曜日</th>
@@ -27,8 +28,10 @@
               <th>変更</th>
               <th>勤務を確認する</th>
             </thead>
+
             <% attendance.each do |day| %>
               <%= f.fields_for "attendance[]", day do |d| %>
+              
                 <tbody class="line">
                   <% css_class = 
                   case $days_of_the_week[day.worked_on.wday]
@@ -40,13 +43,14 @@
                     %>
                   <td><%= l(day.worked_on, format: :short) %></td>
                   <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><%= day.overtime_finished_at.try(:strftime,"%H:%M") %></td>
+                  <td><%= format_basic_info(user.designation_work_end_time) %></td>
+                  <td><%= day.overtime_work %></td>
                   <td><%= d.select :indicater_reply ,{'なし':1, '申請中':2, '承認':3, '否認':4}, { prompt: "選択して下さい"}, { class: 'form-control input-sm' , required: true } %></td>
                   <td><%= d.check_box :change,id: "change" %></td>
                   <td><%= link_to "確認", "#", class: "btn btn-primary" %></td>
                 </tbody>
+                
               <% end %>
             <% end %>
           </table>

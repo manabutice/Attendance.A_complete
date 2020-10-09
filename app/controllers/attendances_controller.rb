@@ -7,24 +7,16 @@ class AttendancesController < ApplicationController
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
 
 
+  
   def edit_overtime_notice
     @user = User.find(params[:user_id])
+    # Attendanceテーブルから、indicater_check_superiorが申請中のもの、indicater_checkの上長名を取り出し、user_id,順と、worked_on順にし、group_byでuser_id毎にグループ分する
     @attendances = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).order(:user_id, :worked_on).group_by(&:user_id)
   end
 
 
   def update_overtime_notice
   end
-
-
-
-
-
-
-
-
-
-
 
 
   def edit_overtime_request
