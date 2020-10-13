@@ -131,7 +131,11 @@
           <td><%= day.note %></td>
           <td><%= day.overtime_finished_at.try(:strftime,"%H") %></td>
           <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
-          <td><%=  %></td>
+          <% if day.overtime_finished_at.present? %> 
+            <td><%= overtime_worked_on(day.overtime_finished_at, @user.designation_work_end_time, day.tomorrow) %></td>
+          <% else %>
+            <td></td>
+          <% end %>
           <td><%= day.overtime_work %></td>
           <td>
             <% if day.indicater_check.present? %>

@@ -14,15 +14,14 @@ ActiveRecord::Schema.define(version: 2020_10_07_024937) do
 
   create_table "attendances", force: :cascade do |t|
     t.date "worked_on"
-    t.datetime "started_at"
-    t.datetime "finished_at"
+    t.time "started_at"
+    t.time "finished_at"
     t.string "note"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "overtime_finished_at"
-    t.boolean "tomorrow"
-    t.datetime "overtime_worked_on"
+    t.boolean "tomorrow", default: false
     t.string "overtime_work"
     t.string "indicater_check"
     t.string "indicater_check_superior"
@@ -51,9 +50,9 @@ ActiveRecord::Schema.define(version: 2020_10_07_024937) do
     t.string "department"
     t.string "staff_id"
     t.string "card_id"
-    t.datetime "basic_work_time", default: "2020-10-07 23:00:00"
-    t.datetime "designation_work_start_time", default: "2020-10-08 00:00:00"
-    t.datetime "designation_work_end_time", default: "2020-10-08 09:00:00"
+    t.time "basic_work_time", default: "2000-01-01 23:00:00"
+    t.time "designation_work_start_time", default: "2000-01-01 00:00:00"
+    t.time "designation_work_end_time", default: "2000-01-01 09:00:00"
     t.boolean "admin", default: false
     t.string "remember_digest"
     t.boolean "superior", default: false
