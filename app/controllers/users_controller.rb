@@ -106,6 +106,8 @@ end
 
 
 
+  def verifacation
+  end  
 
   
 
