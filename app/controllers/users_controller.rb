@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy,:overtime_request]
   before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info,:overtime_request]
   before_action :correct_user, only: [ :edit,:update]
-  before_action :set_one_month, only: :show
+  before_action :set_one_month, only: [:show]
   before_action :admin_user, only: [:destroy, :edit_basic_info]
 
   def show
@@ -107,6 +107,13 @@ end
 
 
   def verifacation
+    @user = User.find(params[:id])
+    @attendance = Attendance.find(params[:id])
+    @first_day = @attendance.worked_on.beginning_of_month
+    @last_day = @first_day.end_of_month
+    @overtime = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).count
+    @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    @worked_sum = @attendances.where.not(started_at: nil).count
   end  
 
   
