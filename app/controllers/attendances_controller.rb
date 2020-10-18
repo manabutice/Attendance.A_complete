@@ -1,4 +1,5 @@
 class AttendancesController < ApplicationController
+ 
   before_action :set_user, only: [:edit_one_month]
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy,:edit_basic_info]
@@ -15,60 +16,87 @@ class AttendancesController < ApplicationController
     @attendances = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).order(:user_id, :worked_on).group_by(&:user_id)
   end
 
+
 # 残業申請お知らせモーダル更新
-
   def update_overtime_notice
-  # トランザクションを開始
-    ActiveRecord::Base.transaction do 
-      # oはovertime。「なし」「承認」「否認」を1〜3で定義
-      o1 = 0
-      o2 = 0
-      o3 = 0
-      attendances_params.each do |id, item|
-        # itemの中のカラム、indicater_check_superiorが存在すれば
-        if item[:indicater_check_superior].present?
-          # itemの中のカラム、changeにチェックがある状態（チェックの有無は0or1で表現）かつ、itemの中のカラム、ndicater_replyが、なしor承認or否認だったら
-          if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
-          attendance = Attendance.find(id)
-          # itemの中のカラム、indicater_replyの値が「なし」なら
-            if item[:indicater_reply] == "なし" 
-          # overtime１に１を足す
-              o1 += 1
-            #   userが申請した残業申請のカラムをnilで更新
-            attendance == nil
-            attendance.update_attributes!(item) 
-            flash[:warning] = "#{user.name}の残業申請を取り消しました"
-            redirect_to user_url(@user)  
-
-          # itemの中のカラム、indicater_replyの値が「承認」なら
-            elsif item[:indicater_reply] == "承認"
-            # overtime2に１を足す
-              o2 += 1
-
-              flash[:success] = "残業申請を承認しました"
-          # itemの中のカラム、indicater_replyの値が「否認」なら
-            else item[:indicater_reply] == "否認"
-          # overtime3に１を足す
-              o3 += 1
-              flash[:danger] = "残業申請を否認しました"
-          attendance.update_attributes!(item)
-            end
-          end
+    attendances_params.each do |id, item|
+    item[:indicater_check_superior].present?
+      if item[:change] == "1"
+        if item[:indicater_reply] == "なし"
+          flash[:success] = "申請を取り消しました"
+        elsif  item[:indicater_reply] == "承認"
+          flash[:success] = "申請を承認しました"
+        elsif  item[:indicater_reply] == "否認"
+          flash[:success] = "申請を否認しました"
+        else
         end
+      else 
+        flash.now[:danger] = "変更にチェックがありません"
       end
-      flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
-      redirect_to user_url(date: params[:date])
-    rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
-      flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-      redirect_to attendances_edit_one_month_user_url(date: params[:date])
+    end  
+
+
+
+
+
+
+  # # トランザクションを開始
+  #   ActiveRecord::Base.transaction do 
+  #     # oはovertime。「なし」「承認」「否認」を1〜3で定義
+  #     o1 = 0
+  #     o2 = 0
+  #     o3 = 0
+  #     attendances_params.each do |id, item|
+  #       # itemの中のカラム、indicater_check_superiorが存在すれば
+  #       if item[:indicater_check_superior].present?
+  #         # itemの中のカラム、changeにチェックがある状態（チェックの有無は0or1で表現）かつ、itemの中のカラム、ndicater_replyが、なしor承認or否認だったら
+  #         if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
+  #         attendance = Attendance.find(id)
+  #         # itemの中のカラム、indicater_replyの値が「なし」なら
+  #           if item[:indicater_reply] == "なし" 
+  #         # overtime１に１を足す
+  #             o1 += 1
+  #           #   userが申請した残業申請のカラムをnilで更新
+  #           @user.overtime_params == nil
+  #           attendance.update_attributes!(item)
+  #           flash[:warning] = "#{user.name}の残業申請を取り消しました"
+  #           redirect_to user_url(@user)  
+
+
+  #         # itemの中のカラム、indicater_replyの値が「承認」なら
+  #           elsif item[:indicater_reply] == "承認"
+  #           # overtime2に１を足す
+  #             o2 += 1
+
+  #             flash[:success] = "残業申請を承認しました"
+  #             attendance.update_attributes!(item)
+  #             redirect_to user_url(@user)  
+
+  #         # itemの中のカラム、indicater_replyの値が「否認」なら
+  #           else item[:indicater_reply] == "否認"
+  #         # overtime3に１を足す
+  #             o3 += 1
+  #             flash[:danger] = "残業申請を否認しました"
+  #         attendance.update_attributes!(item)
+  #         redirect_to user_url(@user)  
+
+  #           end
+  #         end
+  #       end
+      end
+
+      # トランザクションによるエラーの分岐
+    rescue ActiveRecord::RecordInvalid 
+    flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
+    # お知らせモーダルにリダイレクト
+    redirect_to edit_overtime_notice_user_attendance_url(@user,@overtime)
     end 
   end
 
 
 
 
-
-
+# 残業申請モーダル
   def edit_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
@@ -85,8 +113,6 @@ class AttendancesController < ApplicationController
       redirect_to user_url(@user)
     end  
   end
-
-
 
 
 
@@ -151,6 +177,9 @@ private
       # attendanceテーブルの（指示者確認,変更、勤怠を確認する）
       params.require(:attendance).permit(:indicater_reply, :change, :verification, :indicater_check_superior)
     end
+
+
+    
 
 
   end   

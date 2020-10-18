@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # ↓ ActionController::InvalidAuthenticityTokenエラー対策
+  protect_from_forgery
   before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy,:overtime_request]
   before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info,:overtime_request]
   before_action :correct_user, only: [ :edit,:update]
@@ -17,6 +19,7 @@ class UsersController < ApplicationController
       format.csv { send_data render_to_string, type: 'text/csv; charset=shift_jis', filename: "#{filename}.csv" }
     end
   end
+
 
   def index
       @users = User.all
@@ -108,10 +111,10 @@ end
 
   def verifacation
     @user = User.find(params[:id])
-    @attendance = Attendance.find(params[:id])
+    # お知らせモーダルの確認ボタンを押した時にparams[：worked_on]にday.worked_onを入れて飛ばしたので、それをfind_byで取り出している
+    @attendance = Attendance.find_by(worked_on: params[:worked_on])
     @first_day = @attendance.worked_on.beginning_of_month
     @last_day = @first_day.end_of_month
-    @overtime = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).count
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     @worked_sum = @attendances.where.not(started_at: nil).count
   end  

@@ -50,7 +50,7 @@
                   <td><%= day.overtime_work %></td>
                   <td><%= d.select :indicater_reply ,{'なし':1, '申請中':2, '承認':3, '否認':4}, { prompt: false}, { class: 'form-control input-sm'} %></td>
                   <td><%= d.check_box :change,id: "change" %></td>
-                  <td><%= link_to "確認", verifacation_user_path(user.id), class: "btn btn-primary" %></td>
+                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary" %></td>
                 </tbody>
                 
               <% end %>

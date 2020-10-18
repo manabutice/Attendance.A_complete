@@ -6,7 +6,6 @@
       <div class="btn-users-show">
         <%= link_to "◀︎","#" ,class: "btn btn-default disabled" %> &nbsp;&nbsp;
         【<%= l(@first_day, format: :middle) %>】
-        時間管理表
         &nbsp;&nbsp;
         <%= link_to "▶︎","#" ,class: "btn btn-default disabled" %>
       </td>
@@ -27,25 +26,6 @@
     </tr>
   </table>
 </div>
-
-<div class="notice-group">
-    <p clas="notice">【所属長承認申請のお知らせ】</p>
-    <p clas="notice">【勤怠変更申請のお知らせ】</p>
-
-    <% if @overtime >= 1  %>
-
-    <%
-=begin%>
- パスは@userの残業申請なので@overtimeにした 
-<%
-=end%>
-      <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,@overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@overtime}件"%></span></p>
-      
-    <% else %>
-      <p clas="notice">【残業申請のお知らせ】</p>
-    <% end %> 
-</div>
-
 
 
 
@@ -142,7 +122,11 @@
         <td colspan="2">累計日数<br>
           <%= @attendances.count %>日</td>
         <td colspan="6">総合勤務時間<br>
-        <%= format_basic_info(@user.basic_work_time).to_f * @worked_sum %>
+        <%
+=begin%>
+ <%= format_basic_info(@user.basic_work_time).to_f * @worked_sum %> 
+<%
+=end%>
           </td>
         <td>累計在社時間<br>
           <%= format("%.2f", @total_working_times.to_f) %></td>
@@ -169,5 +153,5 @@
   </table>
 </div>
 
-<div id= "edit-overtime-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-<div id= "edit-overtime-notice" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<div id= "show-overtime-verifacation" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
