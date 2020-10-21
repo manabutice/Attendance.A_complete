@@ -24,9 +24,8 @@ ActiveRecord::Schema.define(version: 2020_10_07_024937) do
     t.boolean "tomorrow", default: false
     t.string "overtime_work"
     t.string "indicater_check"
-    t.string "indicater_check_superior"
     t.string "indicater_check_anser"
-    t.integer "indicater_reply", default: 0
+    t.integer "indicater_reply"
     t.boolean "change"
     t.boolean "verification"
     t.index ["user_id"], name: "index_attendances_on_user_id"

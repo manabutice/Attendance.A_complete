@@ -5,8 +5,6 @@ class AddOvertimeToAttendances < ActiveRecord::Migration[5.2]
     add_column :attendances, :overtime_work, :string
   # どの上長に残業申請をしているか
     add_column :attendances, :indicater_check, :string
-    # 選択した上長に申請中かどうか
-    add_column :attendances, :indicater_check_superior, :string
     # 申請した内容を承認したかどうか
     add_column :attendances, :indicater_check_anser, :string
   end

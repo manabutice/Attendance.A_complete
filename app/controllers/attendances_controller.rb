@@ -11,10 +11,9 @@ class AttendancesController < ApplicationController
   # 残業申請お知らせモーダル
   
   def edit_overtime_notice
-    @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_check_superior: "申請中"})
+    @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply: "申請中"})
     # Attendanceテーブルから、indicater_check_superiorが申請中のもの、indicater_checkの上長名を取り出し、user_id,順と、worked_on順にし、group_byでuser_id毎にグループ分する
     @attendances = Attendance.where.not(overtime_finished_at: nil).order("worked_on ASC")
-    # @attendances = Attendance.where(indicater_check_superior: "申請中", indicater_check: @user.name).order(:user_id, :worked_on).group_by(&:user_id)
   end
 
 
@@ -27,8 +26,9 @@ class AttendancesController < ApplicationController
       o2 = 0
       o3 = 0
       overtime_notice_params.each do |id, item|
+        debugger
         # itemの中のカラム、indicater_check_superiorが存在すれば
-        if item[:indicater_check_superior].present?
+        if item[:indicater_reply].present?
           # itemの中のカラム、changeにチェックがある状態（チェックの有無は0or1で表現）かつ、itemの中のカラム、ndicater_replyが、なしor承認or否認だったら
           if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
           attendance = Attendance.find(id)
@@ -36,14 +36,12 @@ class AttendancesController < ApplicationController
           # itemの中のカラム、indicater_replyの値が「なし」なら
             if item[:indicater_reply] == "なし" 
           # overtime１に１を足す
-              o1 += 1
+              o1+= 1
             #   userが申請した残業申請のカラムをnilで更新（nilを代入）
-              item[:indicater_check_superior] = nil
               item[:overtime_finished_at] = nil
               item[:tomorrow] = nil
               item[:overtime_work] = nil
               item[:indicater_check] = nil
-              item[:indicater_check_superior] = nil
           # itemの中のカラム、indicater_replyの値が「承認」なら
             elsif item[:indicater_reply] == "承認"
             # overtime2に１を足す
@@ -59,8 +57,8 @@ class AttendancesController < ApplicationController
             attendance.update_attributes!(item)
           end
         end
-      end 
-      flash[:success] = "残業申請の#{o1}件なし、#{o2}件承認,#{o3}件否認しました"
+      end
+      flash[:success] = "残業申請を#{o1}件なし,#{o2}件承認,#{o3}件否認しました"
         # 上記の３パターンの内容を１まとめにして更新するので、updateは1回
         redirect_to user_url(date: params[:date])
     end  
@@ -148,13 +146,13 @@ private
     # 残業申請モーダルの情報
     def overtime_params
       # attendanceテーブルの（残業終了予定時間,翌日、残業内容、指示者確認（どの上長か）、指示者確認（申請かどうか））
-      params.require(:attendance).permit(:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check,:indicater_check_superior)
+      params.require(:attendance).permit(:overtime_finished_at, :tomorrow, :overtime_work,:indicater_check,:indicater_reply)
     end
 
     # 残業申請お知らせモーダルの情報
     def overtime_notice_params
       # attendanceテーブルの（指示者確認,変更、勤怠を確認する）
-      params.require(:user).permit(attendances: [:overtime_work, :indicater_reply, :change, :indicater_check_superior, :indicater_check, :overtime_finished_at, :indicater_check_anser])[:attendances]
+      params.require(:user).permit(attendances: [:overtime_work, :indicater_reply, :change, :indicater_check, :overtime_finished_at, :indicater_check_anser])[:attendances]
     end
 
 
