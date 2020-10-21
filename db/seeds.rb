@@ -25,22 +25,7 @@
                 card_id: 2,
                 superior: true)
 
-    User.create!(name: "一般A",
-                  email: "sample3@email.com",
-                  password: "password",
-                  password_confirmation: "password",
-                  department: "正職員",
-                  staff_id: 3,
-                  card_id: 3)
-
-      User.create!(name: "一般B",
-                    email: "sample4@email.com",
-                    password: "password",
-                    password_confirmation: "password",
-                    department: "正職員",
-                    staff_id: 4,
-                    card_id: 4)
-
+    
 
         20.times do |n|
           name  = Faker::Name.name

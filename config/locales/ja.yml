@@ -208,3 +208,10 @@ ja:
       hour: "%H"
       minute: "%M"
     pm: 午後
+  enums:              #enum型に対する日本語定義であることを明示するために記述
+  attendance:           #モデル名を指定
+    indicater_reply:           #カラム名を指定
+      not: なし     #Enumの名前定義①
+      apporoval: 承認   #Enumの名前定義②
+      denial: 否認      #Enumの名前定義③
+      applying: 申請中      #Enumの名前定義④

@@ -1,6 +1,7 @@
 class Attendance < ApplicationRecord
   belongs_to :user
-
+  # 指示者確認のカラム not：なし、approval：承認, denial：否認, applying：申請中 
+  enum indicater_reply: { "なし" => 0, "承認" => 1, "否認" => 2, "申請中" => 4 }
   validates :worked_on, presence: true
   validates :note, length: { maximum: 50 }
 

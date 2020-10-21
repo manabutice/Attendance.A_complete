@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   # ↓ ActionController::InvalidAuthenticityTokenエラー対策
-  protect_from_forgery
   before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy,:overtime_request]
   before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info,:overtime_request]
   before_action :correct_user, only: [ :edit,:update]
