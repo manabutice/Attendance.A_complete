@@ -9,78 +9,51 @@ class AttendancesController < ApplicationController
 
 
   # 残業申請お知らせモーダル
-  
   def edit_overtime_notice
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply: "申請中"})
-    # Attendanceテーブルから、indicater_check_superiorが申請中のもの、indicater_checkの上長名を取り出し、user_id,順と、worked_on順にし、group_byでuser_id毎にグループ分する
     @attendances = Attendance.where.not(overtime_finished_at: nil).order("worked_on ASC")
   end
-
-
 # 残業申請お知らせモーダル更新
   def update_overtime_notice
-  # トランザクションを開始
     ActiveRecord::Base.transaction do 
-      # 。選択肢の件数を撮りたいので下記のように定義oはovertime。「なし」「承認」「否認」を1〜3で定義
       o1 = 0
       o2 = 0
       o3 = 0
       overtime_notice_params.each do |id, item|
-        debugger
-        # itemの中のカラム、indicater_check_superiorが存在すれば
         if item[:indicater_reply].present?
-          # itemの中のカラム、changeにチェックがある状態（チェックの有無は0or1で表現）かつ、itemの中のカラム、ndicater_replyが、なしor承認or否認だったら
           if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
           attendance = Attendance.find(id)
           user = User.find(attendance.user_id)
-          # itemの中のカラム、indicater_replyの値が「なし」なら
             if item[:indicater_reply] == "なし" 
-          # overtime１に１を足す
               o1+= 1
-            #   userが申請した残業申請のカラムをnilで更新（nilを代入）
               item[:overtime_finished_at] = nil
               item[:tomorrow] = nil
               item[:overtime_work] = nil
               item[:indicater_check] = nil
-          # itemの中のカラム、indicater_replyの値が「承認」なら
             elsif item[:indicater_reply] == "承認"
-            # overtime2に１を足す
               o2 += 1
-              # attendanceのindicater_check_anserのカラムに"残業申請を承認しました"を入れる
               attendance.indicater_check_anser = "残業申請を承認しました"
-          # itemの中のカラム、indicater_replyの値が「否認」なら
             elsif item[:indicater_reply] == "否認"
-          # overtime3に１を足す
               o3 += 1
             end
-            item[:change] = "0"
             attendance.update_attributes!(item)
           end
         end
       end
       flash[:success] = "残業申請を#{o1}件なし,#{o2}件承認,#{o3}件否認しました"
-        # 上記の３パターンの内容を１まとめにして更新するので、updateは1回
-        redirect_to user_url(date: params[:date])
+        redirect_to user_url(params[:user_id])
     end  
-      # トランザクションによるエラーの分岐
   rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-    # お知らせモーダルにリダイレクト
       redirect_to edit_overtime_notice_user_attendance_url(@user,item)
   end
   
-
-
-
-
 # 残業申請モーダル
   def edit_overtime_request
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
-    # ユーザーテーブルから、superiorがtrueになっているもので自分のuser_id以外のものを@superiorに代入
     @superior = User.where(superior: true).where.not( id: current_user.id )
   end
-
   
   def update_overtime_request
     @user = User.find(params[:user_id])
@@ -90,6 +63,7 @@ class AttendancesController < ApplicationController
       redirect_to user_url(@user)
     end  
   end
+
 
 
 

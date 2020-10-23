@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # ↓ ActionController::InvalidAuthenticityTokenエラー対策
+
   before_action :set_user, only: [:show, :edit, :update, :update_index, :edit_basic_info, :destroy,:overtime_request]
   before_action :logged_in_user, only: [:show, :update, :update_index, :destroy, :edit_basic_info,:overtime_request]
   before_action :correct_user, only: [ :edit,:update]
@@ -8,8 +8,8 @@ class UsersController < ApplicationController
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
-    # 全てのAttendanceの情報から、指示者確認が”申請中”になっていて、attendancesテーブルから,indicater_checkにある上長の名前を取り出したものの件数を@overtimeに代入
-    @overtime = Attendance.where(indicater_reply: 4, indicater_check: @user.name).count
+    @overtime = Attendance.where(indicater_reply: "申請中", indicater_check: @user.name).count
+
     
   
     respond_to do |format|

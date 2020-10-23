@@ -30,8 +30,16 @@
 
             <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-              <%= d.hidden_field :indicater_check, :value => @user.name %>
-              <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %>
+              <%
+=begin%>
+ <%= d.hidden_field :indicater_check, :value => @user.name %> 
+<%
+=end%>
+              <%
+=begin%>
+ <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %> 
+<%
+=end%>
                 <tbody class="line">
                   <% css_class = 
                   case $days_of_the_week[day.worked_on.wday]
@@ -47,12 +55,11 @@
                   <td><%= format_basic_info(user.designation_work_end_time) %></td>
                   <td><%= overtime_worked_on(day.overtime_finished_at, user.designation_work_end_time, day.tomorrow) %></td>
                   <td><%= day.overtime_work %></td>
-                  <td><%= d.select :indicater_reply, Attendance.indicater_replies.keys, { include_blank: true }%></td>
-                  <td><%= d.check_box :change  %></td>
-                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary" %></td>
+                  <td><%= d.select :indicater_reply, Attendance.indicater_replies.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+                  <td><%= d.check_box :change %></td>
+                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                 </tbody>
               <% end %>
-            <% end %>
             <% end %>
           </table>
           <% end %>
