@@ -30,16 +30,12 @@
 
             <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-              <%
-=begin%>
- <%= d.hidden_field :indicater_check, :value => @user.name %> 
-<%
-=end%>
-              <%
-=begin%>
- <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %> 
-<%
-=end%>
+          
+  
+
+              
+  <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %> 
+
                 <tbody class="line">
                   <% css_class = 
                   case $days_of_the_week[day.worked_on.wday]
@@ -61,8 +57,10 @@
                 </tbody>
               <% end %>
             <% end %>
+            <% end %>
           </table>
           <% end %>
+          
           <div class="center">
             <%= f.submit "変更を送信する", class: "btn btn-primary" %>
           </div>
