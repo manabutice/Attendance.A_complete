@@ -140,6 +140,12 @@
           <td>
             <% if day.indicater_check.present? %>
               <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
+            <% else %>
+              <% if day.indicater_reply == "承認" %>
+                <%= "残業#{day.indicater_reply}済" %>
+                <% elsif day.indicater_reply == "否認" %>
+                <%= "残業#{day.indicater_reply}" %>
+              <% end %>
             <% end %>   
           </td>
         </tr>

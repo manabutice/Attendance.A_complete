@@ -13,6 +13,7 @@ class AttendancesController < ApplicationController
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply: "申請中"})
     @attendances = Attendance.where.not(overtime_finished_at: nil).order("worked_on ASC")
   end
+
 # 残業申請お知らせモーダル更新
   def update_overtime_notice
     ActiveRecord::Base.transaction do 
@@ -30,17 +31,21 @@ class AttendancesController < ApplicationController
               item[:tomorrow] = nil
               item[:overtime_work] = nil
               item[:indicater_check] = nil
+
             elsif item[:indicater_reply] == "承認"
+                  item[:indicater_check] = nil
               o2 += 1
-              attendance.indicater_check_anser = "残業申請を承認しました"
+          attendance.indicater_check_anser = "残業申請を承認しました"
             elsif item[:indicater_reply] == "否認"
+                  item[:indicater_check] = nil
               o3 += 1
+          attendance.indicater_check_anser = "残業申請を否認しました"
             end
             attendance.update_attributes!(item)
           end
         end
       end
-      flash[:success] = "残業申請を#{o1}件なし,#{o2}件承認,#{o3}件否認しました"
+      flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
         redirect_to user_url(params[:user_id])
     end  
   rescue ActiveRecord::RecordInvalid 
