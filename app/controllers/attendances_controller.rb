@@ -21,34 +21,40 @@ class AttendancesController < ApplicationController
       o2 = 0
       o3 = 0
       overtime_notice_params.each do |id, item|
-        if item[:indicater_reply].present?
-          if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
-          attendance = Attendance.find(id)
-          user = User.find(attendance.user_id)
-            if item[:indicater_reply] == "なし" 
-              o1+= 1
-              item[:overtime_finished_at] = nil
-              item[:tomorrow] = nil
-              item[:overtime_work] = nil
-              item[:indicater_check] = nil
+      if item[:indicater_reply].present?
+        if (item[:change] == "1") && (item[:indicater_reply] == "なし" || item[:indicater_reply] == "承認" || item[:indicater_reply] == "否認")
+        attendance = Attendance.find(id)
+        user = User.find(attendance.user_id)
+          if item[:indicater_reply] == "なし" 
+            o1+= 1
+            item[:overtime_finished_at] = nil
+            item[:tomorrow] = nil
+            item[:overtime_work] = nil
+            item[:indicater_check] = nil
 
-            elsif item[:indicater_reply] == "承認"
-                  item[:indicater_check] = nil
-              o2 += 1
-          attendance.indicater_check_anser = "残業申請を承認しました"
-            elsif item[:indicater_reply] == "否認"
-                  item[:indicater_check] = nil
-              o3 += 1
-          attendance.indicater_check_anser = "残業申請を否認しました"
-            end
-            attendance.update_attributes!(item)
+          elsif item[:indicater_reply] == "承認"
+                item[:indicater_check] = nil
+            o2 += 1
+        attendance.indicater_check_anser = "残業申請を承認しました"
+
+          elsif item[:indicater_reply] == "否認"
+                item[:indicater_check] = nil
+            o3 += 1
+        attendance.indicater_check_anser = "残業申請を否認しました"
+          end
+          attendance.update_attributes!(item)
+          flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
+          redirect_to user_url(params[:user_id])
+          return
+          else 
+            flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
+            redirect_to user_url(params[:user_id])
+            return
           end
         end
       end
-      flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
-        redirect_to user_url(params[:user_id])
-    end  
-  rescue ActiveRecord::RecordInvalid 
+    end
+    rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
       redirect_to edit_overtime_notice_user_attendance_url(@user,item)
   end
