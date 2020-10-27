@@ -1,4 +1,5 @@
 class AddOvertimeToAttendances < ActiveRecord::Migration[5.2]
+  # 残業申請モーダル
   def change
     add_column :attendances, :overtime_finished_at, :datetime
     add_column :attendances, :tomorrow, :boolean, default: false

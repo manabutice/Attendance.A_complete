@@ -22,9 +22,9 @@ class Attendance < ApplicationRecord
     end
   end
 
-  def check_indicater_reply
-    if indicater_reply.present?
-      errors.add(:indicater_reply, "申請内容を決定して下さい") if change == "0" || change == "1" && indicater_reply == "申請中"
-    end
-  end
+  # def check_indicater_reply
+  #   if indicater_reply.present?
+  #     errors.add(:indicater_reply, "申請内容を決定して下さい") if change == "0" || change == "1" && indicater_reply == "申請中"
+  #   end
+  # end
 end
