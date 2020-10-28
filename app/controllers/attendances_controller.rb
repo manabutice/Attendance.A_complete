@@ -125,9 +125,10 @@ class AttendancesController < ApplicationController
 
 
 private
-    # 1ヶ月分の勤怠情報を扱います。
+    # 勤怠編集
     def attendances_params
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+      # attendanceテーブルの（出勤,退勤,翌日,備考,指示者確認（どの上長か,指示者確認（申請かどうか））
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :tomorrow, :note, :indicater_check_change, :indicater_reply_change])[:attendances]
     end
 
 
