@@ -1,4 +1,4 @@
-<%= form_with(model: @user, url: attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: update_one_month_user_attendance_path(@user, @attendance), local: true, method: :patch) do |f| %>
 <div>
   <h1>勤怠編集画面</h1>
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">

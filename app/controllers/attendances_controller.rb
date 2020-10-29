@@ -102,21 +102,23 @@ class AttendancesController < ApplicationController
 
 
   def edit_one_month
+    
+    @attendance = Attendance.find(params[:id])
+    @superior = User.where(superior: true).where.not( id: current_user.id )
   end 
 
   def update_one_month
-    ActiveRecord::Base.transaction do 
-      attendances_params.each do |id, item|
-        attendance = Attendance.find(id)
-        attendance.update_attributes!(item)
-      end
-    end
+        @attendance = Attendance.find(params[:id])
+        if @attendance.update_attributes(attendances_params)
+            flash.now[:success] = "勤怠変更を受け付けました"
+        else
+          flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"  
+        end
     
-    flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
-    redirect_to user_url(date: params[:date])
-  rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-    redirect_to attendances_edit_one_month_user_url(date: params[:date])
+    
+    
+    
+
   end
 
   
@@ -128,7 +130,7 @@ private
     # 勤怠編集
     def attendances_params
       # attendanceテーブルの（出勤,退勤,翌日,備考,指示者確認（どの上長か,指示者確認（申請かどうか））
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :tomorrow, :note, :indicater_check_change, :indicater_reply_change])[:attendances]
+      params.permit(:started_at, :finished_at, :tomorrow, :note, :indicater_check_change, :indicater_reply_change)
     end
 
 
@@ -143,9 +145,4 @@ private
       # attendanceテーブルの（指示者確認,変更、勤怠を確認する）
       params.require(:user).permit(attendances: [:overtime_work, :indicater_reply, :change, :indicater_check, :overtime_finished_at, :indicater_check_anser])[:attendances]
     end
-
-
-    
-
-
   end   

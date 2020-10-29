@@ -14,8 +14,7 @@ Rails.application.routes.draw do
       get 'edit_basic_info'
       patch 'update_basic_info'
       patch 'update_index'
-      get 'attendances/edit_one_month'
-      patch 'attendances/update_one_month'
+      
       # 確認のshowページ
       get 'verifacation'
     end
@@ -33,6 +32,9 @@ Rails.application.routes.draw do
 
         # 残業申請確認モーダル
         get 'show_overtime_verifacation'
+        # 残業申請確認モーダル
+        get 'edit_one_month'
+        patch 'update_one_month'
       end
     end 
   end
