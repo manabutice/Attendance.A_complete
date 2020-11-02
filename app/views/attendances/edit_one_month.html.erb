@@ -1,4 +1,4 @@
-<%= form_with(model: @user, url: update_one_month_user_attendance_path(@user, @attendance), local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %>
 <div>
   <h1>勤怠編集画面</h1>
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">
@@ -19,6 +19,8 @@
     <tbody>
       <% @attendances.each do |day| %>
       <%= f.fields_for "attendances[]", day do |attendance| %>
+      <%= attendance.hidden_field :indicater_reply_change, :value => "申請中" %>
+
         <% css_class = 
               case $days_of_the_week[day.worked_on.wday]
                 when '土'
@@ -30,19 +32,17 @@
         <tr>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <td><%= attendance.time_select :started_at, {include_blank: true}, {class: "form-control bootstrap-date-only-width"} %></td>
-          <td><%= attendance.time_select :finished_at, {include_blank: true}, {class: "form-control bootstrap-date-only-width"} %></td>
-          <td><%= check_box_tag :tomorrow %>
-              <%= label_tag :tomorrow, "" %></td>
+          <td><%= attendance.time_field :started_edit_at, class: "form-control" %></td>
+          <td><%= attendance.time_field  :finished_edit_at, class: "form-control" %></td>
+          <td><%= attendance.check_box :tomorrow,id: "tomorrow" %></td>
           <td>
-            <% if day.started_at.present? && day.finished_at.present? %>
-              <%= str_times = working_times(day.started_at, day.finished_at) %>
+            <% if day.started_edit_at.present? && day.finished_edit_at.present? %>
+              <%= str_times = working_times(day.started_edit_at, day.finished_edit_at) %>
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
-          <td><%= attendance.text_field :note, class: "form-control" %></td>
-          <td><%= f.select :indicater_check_change,{'上長A':1, '上長B':2}, { include_blank: '選択して下さい'}, { class: 'form-control input-sm'} %></td>
-        </tr>
+          <td><%= attendance.text_field :note, class: "form-control", placeholder: "変更理由を記載して下さい" %></td>
+          <td><%= attendance.collection_select(:indicater_check_change, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm" })%></td>
         <% end %>
       <% end %>
     </tbody>
@@ -54,3 +54,4 @@
   <%= f.submit "編集を保存する", class: "btn btn-lg btn-primary" %>
 </div>
 <%end%>
+

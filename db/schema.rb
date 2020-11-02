@@ -30,6 +30,10 @@ ActiveRecord::Schema.define(version: 2020_10_27_143142) do
     t.boolean "verification"
     t.string "indicater_check_change"
     t.string "indicater_reply_change"
+    t.datetime "started_edit_at"
+    t.datetime "started_before_at"
+    t.datetime "finished_before_at"
+    t.datetime "finished_edit_at"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 

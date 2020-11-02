@@ -31,21 +31,18 @@
 <div class="notice-group">
   <% if current_user.superior? %>
     <p clas="notice">【所属長承認申請のお知らせ】</p>
+
+    <% if @change >= 1  %>
+    <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,@overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
+    <% else %>
     <p clas="notice">【勤怠変更申請のお知らせ】</p>
+    <% end %> 
 
     <% if @overtime >= 1  %>
-
-    <%
-=begin%>
- パスは@userの残業申請なので@overtimeにした 
-<%
-=end%>
       <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,@overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@overtime}件の通知があります"%></span></p>
-      
     <% else %>
       <p clas="notice">【残業申請のお知らせ】</p>
     <% end %> 
-    
   <% end %>
 </div>
 
@@ -54,7 +51,7 @@
 
 
 
-  <%= link_to "勤怠を編集",edit_one_month_user_attendance_path(@user, date: @first_day),class: "btn btn-primary" %> 
+  <%= link_to "勤怠を編集",attendances_edit_one_month_user_path(date: @first_day),class: "btn btn-primary" %> 
   &nbsp;<%= link_to "CSV出力",user_path(format: 'csv'),class: "btn btn-primary" %><br>
   <%= link_to "勤怠修正ログ（承認済）","#",class: "btn btn-primary" %>
 
@@ -140,13 +137,14 @@
           <td>
             <% if day.indicater_check.present? %>
               <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
-            <% else %>
-              <% if day.indicater_reply == "承認" %>
-                <%= "残業#{day.indicater_reply}済" %>
-                <% elsif day.indicater_reply == "否認" %>
-                <%= "残業#{day.indicater_reply}" %>
+            <% elsif day.indicater_reply == "承認" %>
+              <%= "残業#{day.indicater_reply}済" %>
+              <% elsif day.indicater_reply == "否認" %>
+              <%= "残業#{day.indicater_reply}" %>
               <% end %>
-            <% end %>   
+            <% if day.indicater_check_change.present? %>
+              <%= "#{day.indicater_check_change}に勤怠変更#{day.indicater_reply_change}" %>
+            <% end %>
           </td>
         </tr>
       <% end %>
