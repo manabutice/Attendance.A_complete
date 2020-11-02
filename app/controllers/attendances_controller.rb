@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
  
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice]
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy,:edit_basic_info]
   before_action :set_one_month, only: [:edit_one_month]
@@ -115,7 +115,7 @@ class AttendancesController < ApplicationController
         # Attendanceテーブルから1つのidを見つける
         @attendance = Attendance.find(id)
         # 上長が選択されていること
-          if item[:indicater_check_change].present?
+          if item[:indicater_check_edit].present?
             # 時間が入っていない場合はエラー
             if item[:started_edit_at].blank? && item[:finished_edit_at].present?
               flash[:danger] = "出勤時刻が存在しません"
@@ -164,6 +164,15 @@ class AttendancesController < ApplicationController
     return
   end
 
+
+  def edit_one_month_notice
+    @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_edit: "申請中"})
+    @attendances = Attendance.where.not(started_edit_at: nil, finished_edit_at: nil).order("worked_on ASC")
+  end  
+
+
+  def update_one_month_notice
+  end  
   
 
   
@@ -173,7 +182,7 @@ private
     # 勤怠編集
     def attendances_params
       # userに紐ずくattendanceテーブルの（出社日,出勤,退勤,翌日,備考,指示者確認（どの上長か,指示者確認（申請かどうか））
-      params.require(:user).permit(attendances: [:worked_on, :started_edit_at, :finished_edit_at, :tomorrow, :note, :indicater_check_change, :indicater_reply_change])[:attendances]
+      params.require(:user).permit(attendances: [:worked_on, :started_edit_at, :finished_edit_at, :tomorrow, :note, :indicater_check_edit, :indicater_reply_edit])[:attendances]
     end
 
 

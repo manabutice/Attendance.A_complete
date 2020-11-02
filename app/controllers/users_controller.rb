@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
     @overtime = Attendance.where(indicater_reply: "申請中", indicater_check: @user.name).count
-    @change = Attendance.where(indicater_reply_change: "申請中", indicater_check_change: @user.name).count
+    @change = Attendance.where(indicater_reply_edit: "申請中", indicater_check_edit: @user.name).count
     
     
     respond_to do |format|

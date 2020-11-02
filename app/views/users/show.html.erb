@@ -33,7 +33,7 @@
     <p clas="notice">【所属長承認申請のお知らせ】</p>
 
     <% if @change >= 1  %>
-    <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user,@overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
+    <p><%= link_to  "【勤怠変更申請のお知らせ】", attendances_edit_one_month_notice_user_path(@user,@change), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
     <% else %>
     <p clas="notice">【勤怠変更申請のお知らせ】</p>
     <% end %> 
@@ -109,20 +109,23 @@
           <td><%= l(day.started_at,format: :hour) if day.started_at.present? %></td>
           <td><%= l(day.started_at,format: :minute) if day.started_at.present? %></td>
 
-          <td><% if btn_text = attendance_state_start(day) %>
+          <td>
+            <% if btn_text = attendance_state_start(day) %>
               <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
-              <% end %>
+            <% end %>
           </td>
 
           <td><%= l(day.finished_at,format: :hour) if day.finished_at.present? %></td>
           <td><%= l(day.finished_at,format: :minute) if day.finished_at.present? %></td>
-          <td><% if btn_text = attendance_state_finish(day) %>
-              <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %></td>
-              <% end %>
+          <td>
+            <% if btn_text = attendance_state_finish(day) %>
+              <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+            <% end %>
+          </td>
           <td>
             <% if day.started_at.present? && day.finished_at.present? %>
-            <%= str_times = working_times(day.started_at, day.finished_at) %>
-            <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+              <%= str_times = working_times(day.started_at, day.finished_at) %>
+              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
           <td><%= day.note %></td>
@@ -139,11 +142,12 @@
               <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
             <% elsif day.indicater_reply == "承認" %>
               <%= "残業#{day.indicater_reply}済" %>
-              <% elsif day.indicater_reply == "否認" %>
+            <% elsif day.indicater_reply == "否認" %>
               <%= "残業#{day.indicater_reply}" %>
-              <% end %>
-            <% if day.indicater_check_change.present? %>
-              <%= "#{day.indicater_check_change}に勤怠変更#{day.indicater_reply_change}" %>
+            <% end %>
+
+            <% if day.indicater_check_edit.present? %>
+              <%= "#{day.indicater_check_edit}に勤怠変更#{day.indicater_reply_edit}" %>
             <% end %>
           </td>
         </tr>
@@ -183,3 +187,4 @@
 
 <div id= "edit-overtime-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id= "edit-overtime-notice" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id= "edit_one_month_notice" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

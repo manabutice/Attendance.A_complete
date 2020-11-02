@@ -19,7 +19,7 @@
     <tbody>
       <% @attendances.each do |day| %>
       <%= f.fields_for "attendances[]", day do |attendance| %>
-      <%= attendance.hidden_field :indicater_reply_change, :value => "申請中" %>
+      <%= attendance.hidden_field :indicater_reply_edit, :value => "申請中" %>
 
         <% css_class = 
               case $days_of_the_week[day.worked_on.wday]
@@ -42,7 +42,7 @@
             <% end %>
           </td>
           <td><%= attendance.text_field :note, class: "form-control", placeholder: "変更理由を記載して下さい" %></td>
-          <td><%= attendance.collection_select(:indicater_check_change, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm" })%></td>
+          <td><%= attendance.collection_select(:indicater_check_edit, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm" })%></td>
         <% end %>
       <% end %>
     </tbody>

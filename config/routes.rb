@@ -14,9 +14,12 @@ Rails.application.routes.draw do
       get 'edit_basic_info'
       patch 'update_basic_info'
       patch 'update_index'
-      # 残業申請確認モーダル
+      # 勤怠変更申請
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month' 
+      # 勤怠変更お知らせモーダル
+      get 'attendances/edit_one_month_notice'
+      patch 'attendances/update_one_month_notice' 
       # 確認のshowページ
       get 'verifacation'
     end

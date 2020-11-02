@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 2020_10_27_143142) do
     t.string "indicater_check"
     t.string "indicater_check_anser"
     t.integer "indicater_reply"
-    t.boolean "change"
-    t.boolean "verification"
-    t.string "indicater_check_change"
-    t.string "indicater_reply_change"
+    t.boolean "change", default: false
+    t.boolean "verification", default: false
+    t.string "indicater_check_edit"
+    t.string "indicater_reply_edit"
     t.datetime "started_edit_at"
     t.datetime "started_before_at"
     t.datetime "finished_before_at"
