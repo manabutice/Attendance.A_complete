@@ -173,11 +173,12 @@ class AttendancesController < ApplicationController
 # 勤怠変更申請お知らせモーダル
   def edit_one_month_notice
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_edit: "申請中"})
-    @attendances = Attendance.where.not(started_edit_at: nil, finished_edit_at: nil).order("worked_on ASC")
+    @attendances = Attendance.where.not(started_edit_at: nil, finished_edit_at: nil, note: nil, indicater_reply_edit: nil ).order("worked_on ASC")
   end  
 
 
   def update_one_month_notice
+
   end  
   
 

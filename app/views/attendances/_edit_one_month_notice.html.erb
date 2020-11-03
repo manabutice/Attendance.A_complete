@@ -6,35 +6,55 @@
       </button>
     </div>
     <div class="modal-body">
-      <%= form_with(model: @user, url: attendances_update_one_month_notice_user_path, method: :patch, local: true) do |f| %>
-        <% @users.each do |user|%>
+      <%= form_with(model: @user, url: update_one_month_notice_user_attendance_path, method: :patch, local: true) do |f| %>
+      <% @users.each do |user|%>
           <h3 align="center" class="modal-title"><%= "【#{user.name}からの勤怠変更申請】" %></h3>
       
           <table class="table table-bordered table-condensed one_month_notice-table">
 
             <thead class="overtime_notice">
-              <th>日付</th>
-              <th>曜日</th>
-              <th>終了予定時間</th>
-              <th>指定勤務終了時間</th>
-              <th>時間外時間</th>
-              <th>業務処理内容</th>
-              <th>指示者確認
+            <tr>
+              <th rowspan="3">日付</th>
+              <th rowspan="3">曜日</th>
+              <th colspan="4">変更前</th>
+              <th colspan="4">変更後</th>
+              <th rowspan="3">備考</th>
+              <th rowspan="3">指示者確認
                 <div class="maru size_small black">       
                   <div class="letter3">印</div>
                 </div> 
               </th>
-              <th>変更</th>
-              <th>勤務を確認する</th>
-            </thead>
+              <th rowspan="3">変更</th>
+              <th rowspan="3">勤務を確認する</th>
+            </tr>
 
-            <% @attendances.each do |day| %>
+            <tr>
+              <th colspan="2">出社</th>
+              <th colspan="2">退社</th>
+              <th colspan="2">出社</th>
+              <th colspan="2">退社</th>
+            </tr>
+
+            <tr>
+              <th>時</th>
+              <th>分</th>
+              <th>時</th>
+              <th>分</th>
+              <th>時</th>
+              <th>分</th>
+              <th>時</th>
+              <th>分</th>
+            </tr>
+
+            </thead>
+              <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
+            
           
   
 
               
-  <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %> 
+  
 
                 <tbody class="line">
                   <% css_class = 
@@ -47,19 +67,24 @@
                     %>
                   <td><%= l(day.worked_on, format: :short) %></td>
                   <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-                  <td><%= day.overtime_finished_at.try(:strftime,"%H:%M") %></td>
-                  <td><%= format_basic_info(user.designation_work_end_time) %></td>
-                  <td><%= overtime_worked_on(day.overtime_finished_at, user.designation_work_end_time, day.tomorrow) %></td>
-                  <td><%= day.overtime_work %></td>
-                  <td><%= d.select :indicater_reply, Attendance.indicater_replies.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
-                  <td><%= d.check_box :change %></td>
-                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                <% end %>
+                <% end %>
+                <% end %>
                 </tbody>
-              <% end %>
-            <% end %>
-            <% end %>
           </table>
-          <% end %>
+      
           
           <div class="center">
             <%= f.submit "変更を送信する", class: "btn btn-primary" %>
