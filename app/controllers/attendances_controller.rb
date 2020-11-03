@@ -155,8 +155,14 @@ class AttendancesController < ApplicationController
             @attendance.update_attributes!(item)
           end
       end
-    flash[:success] = "勤怠変更を#{c1}件受け付けました"
-    redirect_to user_url(@user)
+      if c1 > 0
+        flash[:success] = "勤怠変更を#{c1}件受け付けました"
+        redirect_to user_url(@user)
+      else
+        flash[:danger] = "上長を選択して下さい"
+        redirect_to attendances_edit_one_month_user_url(date: params[:date])
+        return
+      end
     end
   rescue ActiveRecord::RecordInvalid 
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -164,7 +170,7 @@ class AttendancesController < ApplicationController
     return
   end
 
-
+# 勤怠変更申請お知らせモーダル
   def edit_one_month_notice
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_edit: "申請中"})
     @attendances = Attendance.where.not(started_edit_at: nil, finished_edit_at: nil).order("worked_on ASC")

@@ -138,18 +138,21 @@
           <% end %>
           <td><%= day.overtime_work %></td>
           <td>
-            <% if day.indicater_check.present? %>
-              <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
-            <% elsif day.indicater_reply == "承認" %>
-              <%= "残業#{day.indicater_reply}済" %>
-            <% elsif day.indicater_reply == "否認" %>
-              <%= "残業#{day.indicater_reply}" %>
-            <% end %>
-
-            <% if day.indicater_check_edit.present? %>
-              <%= "#{day.indicater_check_edit}に勤怠変更#{day.indicater_reply_edit}" %>
-            <% end %>
-          </td>
+            <p>
+              <% if day.indicater_check.present? %>
+                <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
+              <% elsif day.indicater_reply == "承認" %>
+                <%= "残業#{day.indicater_reply}済" %>
+              <% elsif day.indicater_reply == "否認" %>
+                <%= "残業#{day.indicater_reply}" %>
+              <% end %>
+            </p>
+            <p>
+              <% if day.indicater_check_edit.present? %>
+                <%= "#{day.indicater_check_edit}に勤怠変更#{day.indicater_reply_edit}" %>
+              <% end %>
+            </td>
+            </p>
         </tr>
       <% end %>
     </tbody>
