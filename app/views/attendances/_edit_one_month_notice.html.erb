@@ -12,7 +12,7 @@
       
           <table class="table table-bordered table-condensed one_month_notice-table">
 
-            <thead class="overtime_notice">
+            <thead class="one_month_notice">
             <tr>
               <th rowspan="3">日付</th>
               <th rowspan="3">曜日</th>
@@ -49,13 +49,7 @@
             </thead>
               <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-            
-          
-  
-
-              
-  
-
+             
                 <tbody class="line">
                   <% css_class = 
                   case $days_of_the_week[day.worked_on.wday]
@@ -71,21 +65,20 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                <% end %>
-                <% end %>
-                <% end %>
+                  <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
+                  <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
+                  <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
+                  <td><%= day.finished_edit_at.try(:strftime,"%M") %></td>
+                  <td><%= day.note %></td>
+                  <td><%= d.select :indicater_reply_edit, Attendance.indicater_reply_edits.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+                  <td><%= d.check_box :change_edit %></td>
+                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                 </tbody>
+                
+                <% end %>
+                <% end %>
           </table>
-      
-          
+      <% end %>
           <div class="center">
             <%= f.submit "変更を送信する", class: "btn btn-primary" %>
           </div>
@@ -93,3 +86,21 @@
     </div>
   </div>
 </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    

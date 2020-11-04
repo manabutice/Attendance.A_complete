@@ -29,11 +29,12 @@ ActiveRecord::Schema.define(version: 2020_10_27_143142) do
     t.boolean "change", default: false
     t.boolean "verification", default: false
     t.string "indicater_check_edit"
-    t.string "indicater_reply_edit"
+    t.integer "indicater_reply_edit"
     t.datetime "started_edit_at"
     t.datetime "started_before_at"
     t.datetime "finished_before_at"
     t.datetime "finished_edit_at"
+    t.boolean "change_edit", default: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 

@@ -108,6 +108,7 @@
           <% end %>
           <td><%= day.overtime_work %></td>
           <td>
+          <p>
             <% if day.indicater_check.present? %>
               <%= "#{day.indicater_check}に残業#{day.indicater_reply}" %>
             <% else %>
@@ -117,6 +118,12 @@
                 <%= indicater_check_anser = "残業申請が否認されました" %>
               <% end %> 
             <% end %> 
+          </p> 
+          <p>
+            <% if day.indicater_check_edit.present? %>
+              <%= "#{day.indicater_check_edit}に勤怠変更#{day.indicater_reply_edit}" %>
+            <% end %> 
+          </p>  
             </td>
         </tr>
       <% end %>
