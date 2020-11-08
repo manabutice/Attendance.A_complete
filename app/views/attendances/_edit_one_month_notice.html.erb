@@ -49,8 +49,7 @@
 
               <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-            
-            <% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %> 
+<% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %>  
 
                 <tbody class="line">
                   <% css_class = 
@@ -63,10 +62,26 @@
                     %>
                   <td><%= l(day.worked_on, format: :short) %></td>
                   <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-                  <td><%= day.started_before_at.try(:strftime,"%H") %></td>
-                  <td><%= day.started_before_at.try(:strftime,"%M") %></td>
-                  <td><%= day.finished_before_at.try(:strftime,"%H") %></td>
-                  <td><%= day.finished_before_at.try(:strftime,"%M") %></td>
+                  <% if day. started_before_at.present? %>
+                    <td><%= day.started_before_at.try(:strftime,"%H") %></td>
+                    <td><%= day.started_before_at.try(:strftime,"%M") %></td>
+                  <% elsif day. started_at.present? %>
+                    <td><%= day.started_at.try(:strftime,"%H") %></td>
+                    <td><%= day.started_at.try(:strftime,"%M") %></td>
+                  <% else %> 
+                    <td></td>
+                    <td></td>
+                  <% end %> 
+                  <% if day. finished_before_at.present? %>
+                    <td><%= day.finished_before_at.try(:strftime,"%H") %></td>
+                    <td><%= day.finished_before_at.try(:strftime,"%M") %></td>
+                  <% elsif %>
+                    <td><%= day.finished_at.try(:strftime,"%H") %></td>
+                    <td><%= day.finished_at.try(:strftime,"%M") %></td>
+                  <% else %>
+                    <td></td>
+                    <td></td>
+                  <% end %>                  
                   <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
                   <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
                   <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
@@ -76,7 +91,9 @@
                   <td><%= d.check_box :change_edit %></td>
                   <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                 </tbody>
-                <% end %>
+              
+
+                <% end %> 
                 <% end %>
                 <% end %>
           </table>

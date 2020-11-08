@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice]
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy,:edit_basic_info]
-  before_action :set_one_month, only: [:edit_one_month, :edit_one_month_notice]
+  before_action :set_one_month, only: [:edit_one_month]
 
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
 
@@ -179,7 +179,7 @@ class AttendancesController < ApplicationController
     @attendances = Attendance.where.not(started_edit_at: nil, finished_edit_at: nil, note: nil, indicater_reply_edit: nil ).order("worked_on ASC")
   end  
 
-
+# 勤怠変更申請お知らせモーダル更新
   def update_one_month_notice
     ActiveRecord::Base.transaction do 
       e1 = 0
@@ -197,31 +197,31 @@ class AttendancesController < ApplicationController
             item[:tomorrow] = nil
             item[:note] = nil
             item[:indicater_check_edit] = nil
-
           elsif item[:indicater_reply_edit] == "承認"
+            if item[:started_before_at].blank?
+                item[:started_before_at] = item[:started_at]
+            end   
+            item[:started_at] = item[:started_edit_at]
+            if item[:finished_before_at].blank?
+              item[:finished_before_at] = item[:finished_at]
+            end   
+            item[:finished_at] = item[:finished_edit_at]
                 item[:indicater_check_edit] = nil
-                attendance.started_at = item[:started_edit_at] 
-                item[:started_before_at] = attendance.started_at
-
-            e2 += 1
+                item[:started_edit_at] = nil
+                item[:finished_edit_at] = nil           
         attendance.indicater_check_anser = "勤怠変更申請を承認しました"
-
+        e2 += 1
           elsif item[:indicater_reply_edit] == "否認"
                 item[:indicater_check_edit] = nil
             e3 += 1
         attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"
           end
           attendance.update_attributes!(item)
-          flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
-          redirect_to user_url(params[:user_id])
-          return
-          else 
-            flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
-            redirect_to user_url(params[:user_id])
-            return
           end
         end
       end
+      flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
+      redirect_to user_url(date: params[:date])
     end
     rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
