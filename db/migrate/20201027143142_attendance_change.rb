@@ -12,5 +12,6 @@ class AttendanceChange < ActiveRecord::Migration[5.2]
     add_column :attendances, :finished_edit_at, :datetime
 
     add_column :attendances, :change_edit, :boolean, default: false
+    add_column :attendances, :indicater_check_edit_anser, :string
   end
 end

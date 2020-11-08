@@ -30,10 +30,6 @@
 
             <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-          
-  
-
-              
   <% if day.user_id == user.id && day.indicater_reply == "申請中" && current_user.name == day.indicater_check %> 
 
                 <tbody class="line">

@@ -122,6 +122,12 @@
           <p>
             <% if day.indicater_check_edit.present? %>
               <%= "#{day.indicater_check_edit}に勤怠変更#{day.indicater_reply_edit}" %>
+            <% else %>
+              <% if day.indicater_reply_edit == "承認" %>
+                <%= indicater_check_edit_anser = "勤怠変更申請が承認されました" %>
+              <% elsif day.indicater_reply_edit == "否認" %>
+                <%= indicater_check_edit_anser = "勤怠変更申請が否認されました" %>
+              <% end %> 
             <% end %> 
           </p>  
             </td>

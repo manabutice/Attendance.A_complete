@@ -45,26 +45,28 @@
               <th>時</th>
               <th>分</th>
             </tr>
-
             </thead>
+
               <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
-             
+            
+            <% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %> 
+
                 <tbody class="line">
                   <% css_class = 
                   case $days_of_the_week[day.worked_on.wday]
-                    when '土'
-                      'text-primary'
+                    when '土'         
+                    'text-primary'
                     when '日'
                       'text-danger'
                     end
                     %>
                   <td><%= l(day.worked_on, format: :short) %></td>
                   <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><%= day.started_before_at.try(:strftime,"%H") %></td>
+                  <td><%= day.started_before_at.try(:strftime,"%M") %></td>
+                  <td><%= day.finished_before_at.try(:strftime,"%H") %></td>
+                  <td><%= day.finished_before_at.try(:strftime,"%M") %></td>
                   <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
                   <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
                   <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
@@ -74,7 +76,7 @@
                   <td><%= d.check_box :change_edit %></td>
                   <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                 </tbody>
-                
+                <% end %>
                 <% end %>
                 <% end %>
           </table>
@@ -86,21 +88,3 @@
     </div>
   </div>
 </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    

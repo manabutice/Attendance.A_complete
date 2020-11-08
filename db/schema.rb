@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_143142) do
     t.datetime "finished_before_at"
     t.datetime "finished_edit_at"
     t.boolean "change_edit", default: false
+    t.string "indicater_check_edit_anser"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
