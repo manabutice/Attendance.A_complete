@@ -62,16 +62,21 @@
                     %>
                   <td><%= l(day.worked_on, format: :short) %></td>
                   <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
+                  
                   <% if day. started_before_at.present? %>
                     <td><%= day.started_before_at.try(:strftime,"%H") %></td>
                     <td><%= day.started_before_at.try(:strftime,"%M") %></td>
-                  <% elsif day. started_at.present? %>
+                  <% elsif day.started_at.present? %>
                     <td><%= day.started_at.try(:strftime,"%H") %></td>
                     <td><%= day.started_at.try(:strftime,"%M") %></td>
-                  <% else %> 
+                  <% elsif day.started_before_at = day.started_at  %> 
+                    <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
+                    <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
+                    <% else %>
                     <td></td>
                     <td></td>
                   <% end %> 
+
                   <% if day. finished_before_at.present? %>
                     <td><%= day.finished_before_at.try(:strftime,"%H") %></td>
                     <td><%= day.finished_before_at.try(:strftime,"%M") %></td>

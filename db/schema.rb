@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_143142) do
     t.boolean "verification", default: false
     t.string "indicater_check_edit"
     t.integer "indicater_reply_edit"
+    t.boolean "tomorrow_edit", default: false
     t.datetime "started_edit_at"
     t.datetime "started_before_at"
     t.datetime "finished_before_at"

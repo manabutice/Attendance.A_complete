@@ -141,15 +141,15 @@ class AttendancesController < ApplicationController
             end
               
             # 翌日チェックがあれば
-            if item[:tomorrow] == "1"
-              # item[:worked_on]で今日の日付を取る。to_dateで今日か明日かの日付を取る。tomorrowで次の日の日付を取る。これを変数tomorrow_dayに代入
-              tomorrow_day = item[:worked_on].to_date.tomorrow.to_s
-              # 退勤時刻のカラム = 上記で作ったtomorrow_dayを文字列にしたもの + 空欄 + 退勤時間を文字列にし、:00を渡すことで日本時間にしてる
-              item[:finished_edit_at] = tomorrow_day.to_s + " " + item[:finished_edit_at].to_s + ":00"
-            else
-              # 退勤時刻のカラム = 今日の日付を文字列にしたもの + 空欄 + 退勤時間を文字列にし、:00を渡すことで日本時間にしてる
-              item[:finished_edit_at] = item[:worked_on].to_s + " " + item[:finished_edit_at].to_s + ":00"
-            end
+            # if item[:tomorrow] == "1"
+            #   # item[:worked_on]で今日の日付を取る。今日か明日かの日付を取る。これを変数tomorrow_dayに代入
+            #   tomorrow_day = @attendance.worked_on.tomorrow.to_s
+            #   # 退勤時刻のカラム = 上記で作ったtomorrow_dayを文字列にしたもの + 空欄 + 退勤時間を文字列にし、:00を渡すことで日本時間にしてる
+            #   item[:finished_edit_at] = tomorrow_day.to_s + " " + item[:finished_edit_at].to_s + ":00"
+            # else
+            #   # 退勤時刻のカラム = 今日の日付を文字列にしたもの + 空欄 + 退勤時間を文字列にし、:00を渡すことで日本時間にしてる
+            #   item[:finished_edit_at] = @attendamce.to_s + " " + item[:finished_edit_at].to_s + ":00"
+            # end
             # カラム更新
             c1 += 1
             @attendance.update_attributes!(item)
@@ -221,7 +221,7 @@ class AttendancesController < ApplicationController
         end
       end
       flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
-      redirect_to user_url(date: params[:date])
+      redirect_to user_url(params[:user_id])
     end
     rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -238,7 +238,7 @@ private
     # 勤怠編集
     def attendances_params
       # userに紐ずくattendanceテーブルの（出社日,出勤,退勤,翌日,備考,指示者確認（どの上長か,指示者確認（申請かどうか））
-      params.require(:user).permit(attendances: [:worked_on, :started_edit_at, :finished_edit_at, :tomorrow, :note, :indicater_check_edit, :indicater_reply_edit])[:attendances]
+      params.require(:user).permit(attendances: [:worked_on, :started_edit_at, :finished_edit_at, :tomorrow_edit, :note, :indicater_check_edit, :indicater_reply_edit])[:attendances]
     end
 # 勤怠編集お知らせモーダル
     def attendances_notice_params

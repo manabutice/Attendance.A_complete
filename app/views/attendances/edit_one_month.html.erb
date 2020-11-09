@@ -34,10 +34,10 @@
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td><%= attendance.time_field :started_edit_at, class: "form-control" %></td>
           <td><%= attendance.time_field  :finished_edit_at, class: "form-control" %></td>
-          <td><%= attendance.check_box :tomorrow,id: "tomorrow" %></td>
+          <td><%= attendance.check_box :tomorrow_edit, id: "tomorrow" %></td>
           <td>
             <% if day.started_edit_at.present? && day.finished_edit_at.present? %>
-              <%= str_times = working_times(day.started_edit_at, day.finished_edit_at) %>
+              <%= str_times = overtime_worked_on(day.finished_edit_at, day.started_edit_at, day.tomorrow_edit) %>
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
