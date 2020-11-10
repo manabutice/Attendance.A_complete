@@ -197,26 +197,33 @@ class AttendancesController < ApplicationController
             item[:tomorrow] = nil
             item[:note] = nil
             item[:indicater_check_edit] = nil
+
           elsif item[:indicater_reply_edit] == "承認"
-            if item[:started_before_at].blank?
-                item[:started_before_at] = item[:started_at]
-            end   
-            item[:started_at] = item[:started_edit_at]
-            if item[:finished_before_at].blank?
-              item[:finished_before_at] = item[:finished_at]
-            end   
-            item[:finished_at] = item[:finished_edit_at]
-                item[:indicater_check_edit] = nil
-                item[:started_edit_at] = nil
-                item[:finished_edit_at] = nil           
-        attendance.indicater_check_anser = "勤怠変更申請を承認しました"
-        e2 += 1
+            if  item[:started_before_at].blank?
+                item[:started_before_at] = attendance.started_at
+            end 
+            item[:started_at] = attendance.started_edit_at
+
+            if  item[:finished_before_at].blank?
+                item[:finished_before_at] = attendance.finished_at
+            end 
+            item[:finished_at] = attendance.finished_edit_at
+            item[:started_edit_at] = nil
+            item[:finished_edit_at] = nil
+
+            e2 += 1          
+            attendance.indicater_check_anser = "勤怠変更申請を承認しました"
+      
           elsif item[:indicater_reply_edit] == "否認"
-                item[:indicater_check_edit] = nil
+            item[:indicater_check_edit] = nil
+            item[:started_edit_at] = nil
+            item[:finished_edit_at] = nil
+            item[:note] = nil
             e3 += 1
-        attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"
+            attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"
           end
           attendance.update_attributes!(item)
+    
           end
         end
       end
@@ -238,7 +245,7 @@ private
     # 勤怠編集
     def attendances_params
       # userに紐ずくattendanceテーブルの（出社日,出勤,退勤,翌日,備考,指示者確認（どの上長か,指示者確認（申請かどうか））
-      params.require(:user).permit(attendances: [:worked_on, :started_edit_at, :finished_edit_at, :tomorrow_edit, :note, :indicater_check_edit, :indicater_reply_edit])[:attendances]
+      params.require(:user).permit(attendances: [:worked_on, :started_at, :finished_at, :started_edit_at, :finished_edit_at, :tomorrow_edit, :note, :indicater_check_edit, :indicater_reply_edit])[:attendances]
     end
 # 勤怠編集お知らせモーダル
     def attendances_notice_params
