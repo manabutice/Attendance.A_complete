@@ -3,20 +3,22 @@
   <table class="table table-bordered table-condensed user-table">
     <tr>
       <td>
-      <div class="btn-users-show">
-        <%= link_to "◀︎",user_path(date: @first_day.prev_month),class: "btn btn-primary" %>
-        &nbsp;&nbsp;
-        【<%= l(@first_day, format: :middle) %>】
-        時間管理表
-        &nbsp;&nbsp;
-        <%= link_to "▶︎",user_path(date: @first_day.next_month),class: "btn btn-primary" %>
+        <div class="btn-users-show">
+          <%= link_to "◀︎",user_path(date: @first_day.prev_month),class: "btn btn-primary" %>
+          &nbsp;&nbsp;
+          【<%= l(@first_day, format: :middle) %>】
+          時間管理表
+          &nbsp;&nbsp;
+          <%= link_to "▶︎",user_path(date: @first_day.next_month),class: "btn btn-primary" %>
+        </div> 
       </td>
-      <td>指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>
-          指定勤務終了時間：<%= format_basic_info(@user.designation_work_end_time) %></td>
+      <td> 
+        指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>
+        指定勤務終了時間：<%= format_basic_info(@user.designation_work_end_time) %>
+      </td>
       <td colspan="3">基本時間：<%= format_basic_info(@user.basic_work_time) %></td>
       <td>初日<%= l(@first_day, format: :short) %></td>
     </tr>
-
     <tr>
       <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
       <td>名前：<%= @user.name %></td>
@@ -30,31 +32,29 @@
 
 <div class="notice-group">
   <% if current_user.superior? %>
-    <p clas="notice">【所属長承認申請のお知らせ】</p>
+    <% if @month >= 1  %>
+        <p><%= link_to  "【所属長承認申請のお知らせ】", "#", remote: true, class: "notice" %><span class="red_box"><%= "#{@month}件の通知があります"%></span></p>
+      <% else %>
+      <p clas="notice">【所属長承認申請のお知らせ】</p>
+      <% end %> 
 
-    <% if @change >= 1  %>
-    <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_one_month_notice_user_attendance_path(@user, @change), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
-    <% else %>
-    <p clas="notice">【勤怠変更申請のお知らせ】</p>
-    <% end %> 
+      <% if @change >= 1  %>
+        <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_one_month_notice_user_attendance_path(@user, @change), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
+      <% else %>
+        <p clas="notice">【勤怠変更申請のお知らせ】</p>
+      <% end %> 
 
-    <% if @overtime >= 1  %>
-      <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user, @overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@overtime}件の通知があります"%></span></p>
-    <% else %>
-      <p clas="notice">【残業申請のお知らせ】</p>
-    <% end %> 
+      <% if @overtime >= 1  %>
+        <p><%= link_to  "【残業申請のお知らせ】", edit_overtime_notice_user_attendance_path(@user, @overtime), remote: true, class: "notice" %><span class="red_box"><%= "#{@overtime}件の通知があります"%></span></p>
+      <% else %>
+        <p clas="notice">【残業申請のお知らせ】</p>
+      <% end %> 
   <% end %>
 </div>
 
-
-
-
-
-
-  <%= link_to "勤怠を編集",attendances_edit_one_month_user_path(date: @first_day),class: "btn btn-primary" %> 
-  &nbsp;<%= link_to "CSV出力",user_path(format: 'csv'),class: "btn btn-primary" %><br>
+  <%= link_to "勤怠を編集",attendances_edit_one_month_user_path(date: @first_day),class: "btn btn-primary" %> &nbsp;
+  <%= link_to "CSV出力",user_path(format: 'csv'),class: "btn btn-primary" %><br>
   <%= link_to "勤怠修正ログ（承認済）","#",class: "btn btn-primary" %>
-
 <div>
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">
     <thead>
@@ -176,16 +176,23 @@
           <td></td>
           <td></td>
           <td></td>
+          <%
+=begin%>
+ 1ヶ月申請 
+<%
+=end%>
         <td>
-          <%= form_with(model: @user, local: true) do |f| %>
-          <div class="form-group">
-            <%= f.label :boss,"所属長承認 未" %>
-            <%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %>
-          </div>
-          <div class="form-group">
-            <%= f.submit '申請する', class: 'btn btn-primary' %>
-          </div>
-          <% end %>
+          <%= form_with(model: @user, url: attendances_update_month_approval_user_path(@user), method: :patch , local: true) do |f| %>
+                <%= f.hidden_field :indicater_reply_month, :value => "申請中" %>
+                <%= f.hidden_field :month_approval, :value => @first_day %>
+                <div class="form-group">
+                  <%= f.label :indicater_check_month,"所属長承認 未" %>
+                  <%= f.collection_select(:indicater_check_month, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm"})%>
+                </div>
+                <div class="form-group">
+                  <%= f.submit '申請', class: 'btn btn-primary' %>
+                </div>
+            <% end %>
         </td>
       </tr>
     </tfoot> 

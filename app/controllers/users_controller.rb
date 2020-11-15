@@ -10,8 +10,9 @@ class UsersController < ApplicationController
     @worked_sum = @attendances.where.not(started_at: nil).count
     @overtime = Attendance.where(indicater_reply: "申請中", indicater_check: @user.name).count
     @change = Attendance.where(indicater_reply_edit: "申請中", indicater_check_edit: @user.name).count
-    
-    
+    @month = Attendance.where(indicater_reply_month: "申請中", indicater_check_month: @user.name).count
+    @superior = User.where(superior: true).where.not( id: current_user.id )
+    # csv出力
     respond_to do |format|
       format.html
       filename = @user.name + "：" + l(@first_day, format: :middle) + "分" + " " + "勤怠"

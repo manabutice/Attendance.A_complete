@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_024337) do
     t.datetime "finished_edit_at"
     t.boolean "change_edit", default: false
     t.string "indicater_check_edit_anser"
+    t.date "month_approval"
     t.string "indicater_check_month"
     t.string "indicater_reply_month"
     t.boolean "change_month", default: false

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       # 勤怠変更申請
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month'  
+      # １ヶ月承認
+      get 'attendances/edit_month_approval'
+      patch 'attendances/update_month_approval'
       # 確認のshowページ
       get 'verifacation'
     end
@@ -36,6 +39,8 @@ Rails.application.routes.draw do
         # 勤怠変更お知らせモーダル
       get 'edit_one_month_notice'
       patch 'update_one_month_notice'
+      
+
       end
     end 
   end

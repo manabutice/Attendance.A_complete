@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
     Date.current.beginning_of_month : params[:date].to_date
     @last_day = @first_day.end_of_month
     one_month = [*@first_day..@last_day]
-  
     @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
   
     unless one_month.count == @attendances.count

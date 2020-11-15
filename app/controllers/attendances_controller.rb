@@ -1,8 +1,9 @@
 class AttendancesController < ApplicationController
  
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice,]
+
   before_action :logged_in_user, only: [:update, :edit_one_month]
-  before_action :admin_user, only: [:index,:destroy,:edit_basic_info]
+  before_action :admin_user, only: [:index,:destroy, :edit_basic_info]
   before_action :set_one_month, only: [:edit_one_month]
 
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
@@ -234,7 +235,20 @@ class AttendancesController < ApplicationController
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
       redirect_to edit_one_month_notice_user_attendance_url(@user,item)
   end
-      
+
+  # 1ヶ月勤怠承認
+  def update_month_approval
+    # ユーザーを特定
+      @user = User.find(params[:id])
+      # 特定したユーザーの現在の月を取得
+      @attendance = @user.attendances.find_by(worked_on: params[:user][:month_approval])
+      # パラメーター更新
+    if @attendance.update_attributes(month_approval_params)
+      flash[:success] = "#勤怠承認申請を受け付けました"
+    end
+    redirect_to user_url(@user)
+  end  
+
 
   
 
@@ -261,7 +275,13 @@ private
 
     # 残業申請お知らせモーダルの情報
     def overtime_notice_params
-      # attendanceテーブルの（指示者確認,変更、勤怠を確認する）
+      # attendanceテーブルの（指示者確認,変更）
       params.require(:user).permit(attendances: [:overtime_work, :indicater_reply, :change, :indicater_check, :overtime_finished_at, :indicater_check_anser])[:attendances]
+    end 
+
+      # 1ヶ月承認申請お知らせモーダル
+      def month_approval_params 
+        # attendanceテーブルの（承認月,指示者確認、どの上長か）
+        params.require(:user).permit(:month_approval, :indicater_reply_month, :indicater_check_month)
     end
   end   
