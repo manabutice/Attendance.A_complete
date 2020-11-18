@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
  
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice, :edit_month_approval_notice]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :update_month_approval, :edit_overtime_notice, :edit_one_month_notice, :edit_month_approval_notice]
 
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy, :edit_basic_info]
@@ -240,8 +240,6 @@ class AttendancesController < ApplicationController
 
   # 1ヶ月勤怠承認
   def update_month_approval
-    # ユーザーを特定
-      @user = User.find(params[:id])
       # 特定したユーザーの現在の月を取得
       @attendance = @user.attendances.find_by(worked_on: params[:user][:month_approval])
       # パラメーター更新
@@ -253,7 +251,7 @@ class AttendancesController < ApplicationController
 
   def edit_month_approval_notice
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_month: "申請中"})
-    @attendances = Attendance.where.not(month_approval:nil, indicater_reply_month: nil).order("worked_on ASC")
+    @attendances = Attendance.where.not(month_approval: nil, indicater_reply_month: nil).order("month_approval ASC")
   end  
   
   def update_month_approval_notice
