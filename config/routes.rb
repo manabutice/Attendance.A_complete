@@ -39,6 +39,9 @@ Rails.application.routes.draw do
         # 勤怠変更お知らせモーダル
       get 'edit_one_month_notice'
       patch 'update_one_month_notice'
+        #１ヶ月承認モーダル
+      get 'edit_month_approval_notice'
+      patch 'update_month_approval_notice'
       
 
       end

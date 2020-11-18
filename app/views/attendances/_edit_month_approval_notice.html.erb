@@ -1,0 +1,42 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"></h1>
+    </div>
+    <div class="modal-body">
+      <%= form_with(model: @user, url: update_month_approval_notice_user_attendance_path ,method: :patch , local: true) do |f| %>
+        <% @users.each do |user|%>
+            <h3 align="center" class="modal-title"><%= "【#{user.name}からの1ヶ月分勤怠申請】" %></h3>
+          <table class="table table-bordered table-condensed overtime-table">
+            <thead class="overtime_request">
+              <th>月</th>
+              <th>指示者確認
+                <div class="maru size_small black">       
+                  <div class="letter3">印</div>
+                </div> 
+              </th>
+              <th>変更</th>
+              <th>勤怠を確認する</th>
+            </thead>
+              <% @attendances.each do |attendance| %>
+                  <% if attendance.user_id == user.id && attendance.indicater_reply_month == "申請中" && current_user.name == attendance.indicater_check_month %> 
+                    <tbody class="line">
+                      <td><%= l(attendance.month_approval, format: :short2)%>月</td>
+                      <td><%= f.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+                      <td><%= f.check_box :change_month %></td>
+                      <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: attendance.worked_on), class: "btn btn-primary", target: :_blank %></td>
+                    </tbody>
+                <% end %>
+              <% end %>
+          </table>
+          <div class="center">
+            <%= f.submit '変更を送信する', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

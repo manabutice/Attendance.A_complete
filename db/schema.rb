@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_024337) do
     t.string "indicater_check_edit_anser"
     t.date "month_approval"
     t.string "indicater_check_month"
-    t.string "indicater_reply_month"
+    t.integer "indicater_reply_month"
     t.boolean "change_month", default: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end

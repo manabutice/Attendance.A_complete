@@ -6,7 +6,7 @@ class AddMonthRequestToAttendances < ActiveRecord::Migration[5.2]
 # どの上長に申請したか
     add_column :attendances, :indicater_check_month, :string
 # 指示者確認のセレクト    
-    add_column :attendances, :indicater_reply_month, :string
+    add_column :attendances, :indicater_reply_month, :integer
 # モーダルの変更ボタン
     add_column :attendances, :change_month, :boolean, default: false
   end

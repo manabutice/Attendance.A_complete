@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
  
-  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice,]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :edit_overtime_notice, :edit_one_month_notice, :edit_month_approval_notice]
 
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy, :edit_basic_info]
@@ -236,6 +236,8 @@ class AttendancesController < ApplicationController
       redirect_to edit_one_month_notice_user_attendance_url(@user,item)
   end
 
+
+
   # 1ヶ月勤怠承認
   def update_month_approval
     # ユーザーを特定
@@ -249,8 +251,15 @@ class AttendancesController < ApplicationController
     redirect_to user_url(@user)
   end  
 
-
+  def edit_month_approval_notice
+    @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_month: "申請中"})
+    @attendances = Attendance.where.not(month_approval:nil, indicater_reply_month: nil).order("worked_on ASC")
+  end  
   
+  def update_month_approval_notice
+    @user = User.find(params[:id])
+  end  
+
 
   
 
