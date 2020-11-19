@@ -243,8 +243,9 @@ class AttendancesController < ApplicationController
       # 特定したユーザーの現在の月を取得
       @attendance = @user.attendances.find_by(worked_on: params[:user][:month_approval])
       # パラメーター更新
+      mon = l(@attendance.month_approval, format: :short2)
     if @attendance.update_attributes(month_approval_params)
-      flash[:success] = "#勤怠承認申請を受け付けました"
+      flash[:success] = "#{mon}月の勤怠承認申請を受け付けました"
     end
     redirect_to user_url(@user)
   end  
