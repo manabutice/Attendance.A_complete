@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_024337) do
     t.string "indicater_check_month"
     t.integer "indicater_reply_month"
     t.boolean "change_month", default: false
+    t.string "indicater_check_month_anser"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 

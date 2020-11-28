@@ -243,21 +243,61 @@ class AttendancesController < ApplicationController
       # 特定したユーザーの現在の月を取得
       @attendance = @user.attendances.find_by(worked_on: params[:user][:month_approval])
       # パラメーター更新
-      mon = l(@attendance.month_approval, format: :short2)
+      # mon = Date.strptime(@attendance.month_approval, format: :short2)
     if @attendance.update_attributes(month_approval_params)
-      flash[:success] = "#{mon}月の勤怠承認申請を受け付けました"
+      flash[:success] = "勤怠承認申請を受け付けました"
     end
     redirect_to user_url(@user)
   end  
+
 
   def edit_month_approval_notice
     @users = User.joins(:attendances).group("users.id").where(attendances: {indicater_reply_month: "申請中"})
     @attendances = Attendance.where.not(month_approval: nil, indicater_reply_month: nil).order("month_approval ASC")
   end  
   
+# 1ヶ月勤怠承認更新
   def update_month_approval_notice
-    @user = User.find(params[:id])
-  end  
+    ActiveRecord::Base.transaction do 
+      a1 = 0
+      a2 = 0
+      a3 = 0
+      month_approval_notice_params.each do |id, item|
+      if item[:indicater_reply_month].present?
+        if (item[:change_month] == "1") && (item[:indicater_reply_month] == "なし" || item[:indicater_reply_month] == "承認" || item[:indicater_reply_month] == "否認")
+        attendance = Attendance.find(id)
+        user = User.find(attendance.user_id)
+          if item[:indicater_reply_month] == "なし" 
+            a1+= 1
+            item[:month_approval] = nil
+            item[:indicater_check_month] = nil
+
+          elsif item[:indicater_reply_month] == "承認"
+                item[:indicater_check_month] = nil
+            a2+= 1
+        attendance.indicater_check_month_anser = "1ヶ月分の勤怠をを承認しました"
+
+          elsif item[:indicater_reply_month] == "否認"
+                item[:indicater_check_month] = nil
+            a3+= 1
+        attendance.indicater_check_month_anser = "1ヶ月分の勤怠を否認しました"
+          end
+          attendance.update_attributes!(item)
+          flash[:success] = "【1ヶ月の承認申請】　#{a1}件なし,　#{a2}件承認,　#{a3}件否認しました"
+          redirect_to user_url(params[:user_id])
+          return
+          else 
+            flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
+            redirect_to user_url(params[:user_id])
+            return
+          end
+        end
+      end
+    end
+    rescue ActiveRecord::RecordInvalid 
+      flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
+      redirect_to edit_month_approval_notice_user_attendance_url(@user,item)
+  end
 
 
   
@@ -287,9 +327,16 @@ private
       params.require(:user).permit(attendances: [:overtime_work, :indicater_reply, :change, :indicater_check, :overtime_finished_at, :indicater_check_anser])[:attendances]
     end 
 
-      # 1ヶ月承認申請お知らせモーダル
+      # 1ヶ月承認申請
       def month_approval_params 
         # attendanceテーブルの（承認月,指示者確認、どの上長か）
         params.require(:user).permit(:month_approval, :indicater_reply_month, :indicater_check_month)
     end
+
+    # 1ヶ月承認申請お知らせモーダル
+    def month_approval_notice_params
+      # attendanceテーブルの（承認月,指示者確認、変更,どの上長か）
+      params.require(:user).permit(attendances: [:month_approval, :indicater_reply_month, :change_month, :indicater_check_month])[:attendances]
+    end
+
   end   

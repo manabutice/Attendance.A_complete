@@ -9,5 +9,7 @@ class AddMonthRequestToAttendances < ActiveRecord::Migration[5.2]
     add_column :attendances, :indicater_reply_month, :integer
 # モーダルの変更ボタン
     add_column :attendances, :change_month, :boolean, default: false
+# お知らせモーダルのメッセージ    
+    add_column :attendances, :indicater_check_month_anser, :string
   end
 end

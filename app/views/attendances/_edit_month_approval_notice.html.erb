@@ -9,6 +9,10 @@
     <div class="modal-body">
       <%= form_with(model: @user, url: update_month_approval_notice_user_attendance_path ,method: :patch , local: true) do |f| %>
         <% @users.each do |user|%>
+        <% @attendances.each do |day| %>
+                <%= f.fields_for "attendances[]", day do |attendance| %>
+                  <% if day.user_id == user.id && day.indicater_reply_month == "申請中" && current_user.name == day.indicater_check_month %> 
+                    <tbody class="line">
             <h3 align="center" class="modal-title"><%= "【#{user.name}からの1ヶ月分勤怠申請】" %></h3>
           <table class="table table-bordered table-condensed overtime-table">
             <thead class="overtime_request">
@@ -21,22 +25,19 @@
               <th>変更</th>
               <th>勤怠を確認する</th>
             </thead>
-              <% @attendances.each do |day| %>
-                <%= f.fields_for "attendances[]", day do |attendance| %>
-                  <% if day.user_id == user.id && day.indicater_reply_month == "申請中" && current_user.name == day.indicater_check_month %> 
-                    <tbody class="line">
                       <td><%= l(day.month_approval, format: :short2)%>月</td>
                       <td><%= attendance.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
                       <td><%= attendance.check_box :change_month %></td>
                       <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                     </tbody>
-                  <% end %>
-                <% end %>
-              <% end %>
+                  
           </table>
           <div class="center">
             <%= f.submit '変更を送信する', class: 'btn btn-primary' %>
           </div>
+          <% end %>
+                <% end %>
+              <% end %>
         <% end %>
       <% end %>
     </div>
