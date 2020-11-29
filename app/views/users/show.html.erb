@@ -33,13 +33,17 @@
 <div class="notice-group">
   <% if current_user.superior? %>
     <% if @month >= 1  %>
+      <div class="red-group">
         <p><%= link_to  "【所属長承認申請のお知らせ】", edit_month_approval_notice_user_attendance_path(@user, @month), remote: true, class: "notice" %><span class="red_box"><%= "#{@month}件の通知があります"%></span></p>
+      </div>    
       <% else %>
       <p clas="notice">【所属長承認申請のお知らせ】</p>
       <% end %> 
-
+<p></p>
       <% if @change >= 1  %>
-        <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_one_month_notice_user_attendance_path(@user, @change), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
+        <div class="red-group">
+          <p><%= link_to  "【勤怠変更申請のお知らせ】", edit_one_month_notice_user_attendance_path(@user, @change), remote: true, class: "notice" %><span class="red_box"><%= "#{@change}件の通知があります"%></span></p>
+        </div>  
       <% else %>
         <p clas="notice">【勤怠変更申請のお知らせ】</p>
       <% end %> 
@@ -187,9 +191,11 @@
               <%= f.hidden_field :month_approval, :value => @first_day %>
               <div class="form-group">
                 <% if @attendance.indicater_reply_month == "承認" %>
-                  <%= f.label :indicater_check_month, "所属長承認#{@attendance.indicater_check_month}から承認済" %>
+                  <%= f.label :indicater_check_month, "所属長承認　#{@attendance.indicater_check_month}から承認済" %>
                 <% elsif @attendance.indicater_reply_month == "否認" %>
-                  <%= f.label :indicater_check_month, "所属長否認#{@attendance.indicater_check_month}から否認済" %>
+                  <%= f.label :indicater_check_month, "所属長否認　#{@attendance.indicater_check_month}から否認済" %>
+                <% elsif @attendance.indicater_reply_month == "申請中" %>
+                  <%= f.label :indicater_check_month, "所属長承認　#{@attendance.indicater_check_month}へ申請中" %>
                 <% else %>  
                   <%= f.label :indicater_check_month,"所属長承認 未" %>
                 <% end %>  

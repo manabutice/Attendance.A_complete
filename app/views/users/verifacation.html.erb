@@ -158,7 +158,15 @@
           <%= form_with(model: @user, local: true) do |f| %>
           <fieldset disabled>
           <div class="form-group">
-            <%= f.label :boss,"所属長承認 未" %>
+            <% if @attendance.indicater_reply_month == "承認" %>
+              <%= f.label :indicater_check_month, "所属長承認　#{@attendance.indicater_check_month}から承認済" %>
+            <% elsif @attendance.indicater_reply_month == "否認" %>
+              <%= f.label :indicater_check_month, "所属長否認　#{@attendance.indicater_check_month}から否認済" %>
+            <% elsif @attendance.indicater_reply_month == "申請中" %>
+              <%= f.label :indicater_check_month, "所属長承認　#{@attendance.indicater_check_month}へ申請中" %>
+            <% else %>  
+              <%= f.label :indicater_check_month,"所属長承認 未" %>
+            <% end %>
             <%= f.select :boss,{'上長A':1, '上長B':2}, { include_blank: ''}, { class: 'form-control input-sm' , required: true } %>
           </div>
           

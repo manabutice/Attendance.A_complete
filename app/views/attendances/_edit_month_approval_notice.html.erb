@@ -15,7 +15,7 @@
                     <tbody class="line">
             <h3 align="center" class="modal-title"><%= "【#{user.name}からの1ヶ月分勤怠申請】" %></h3>
           <table class="table table-bordered table-condensed overtime-table">
-            <thead class="overtime_request">
+            <thead class="modal_notice">
               <th>月</th>
               <th>指示者確認
                 <div class="maru size_small black">       
@@ -25,12 +25,12 @@
               <th>変更</th>
               <th>勤怠を確認する</th>
             </thead>
-                      <td><%= l(day.month_approval, format: :short2)%>月</td>
-                      <td><%= attendance.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
-                      <td><%= attendance.check_box :change_month %></td>
-                      <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
-                    </tbody>
-                  
+            <tbody class="modal_notice">
+              <td><%= l(day.month_approval, format: :short2)%>月</td>
+              <td><%= attendance.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+              <td><%= attendance.check_box :change_month %></td>
+              <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
+            </tbody>
           </table>
           <div class="center">
             <%= f.submit '変更を送信する', class: 'btn btn-primary' %>
