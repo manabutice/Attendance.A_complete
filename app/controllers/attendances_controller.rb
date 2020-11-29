@@ -273,12 +273,10 @@ class AttendancesController < ApplicationController
             item[:indicater_check_month] = nil
 
           elsif item[:indicater_reply_month] == "承認"
-                item[:indicater_check_month] = nil
             a2+= 1
         attendance.indicater_check_month_anser = "1ヶ月分の勤怠をを承認しました"
 
           elsif item[:indicater_reply_month] == "否認"
-                item[:indicater_check_month] = nil
             a3+= 1
         attendance.indicater_check_month_anser = "1ヶ月分の勤怠を否認しました"
           end

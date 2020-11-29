@@ -182,14 +182,14 @@
 <%
 =end%>
         <td>
-          <%= form_with(model: @user, url: attendances_update_month_approval_user_path(@user), method: :patch , local: true) do |f| %>
+          <%= form_with(model: @user, url: attendances_update_month_approval_user_path(@user), method: :patch , local: true) do |f| %> 
               <%= f.hidden_field :indicater_reply_month, :value => "申請中" %>
               <%= f.hidden_field :month_approval, :value => @first_day %>
               <div class="form-group">
                 <% if @attendance.indicater_reply_month == "承認" %>
-                  <%= f.label :indicater_check_month,"所属長承認 承認" %>
+                  <%= f.label :indicater_check_month, "所属長承認#{@attendance.indicater_check_month}から承認済" %>
                 <% elsif @attendance.indicater_reply_month == "否認" %>
-                  <%= f.label :indicater_check_month,"所属長否認 否認" %>
+                  <%= f.label :indicater_check_month, "所属長否認#{@attendance.indicater_check_month}から否認済" %>
                 <% else %>  
                   <%= f.label :indicater_check_month,"所属長承認 未" %>
                 <% end %>  
@@ -198,7 +198,6 @@
               <div class="form-group">
                 <%= f.submit '申請', class: 'btn btn-primary' %>
               </div>
-        
           <% end %>
         </td>
       </tr>
