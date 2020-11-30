@@ -257,7 +257,7 @@ class AttendancesController < ApplicationController
   end  
   
 # 1ヶ月勤怠承認更新
-  def update_month_approval_notice
+def update_month_approval_notice
     ActiveRecord::Base.transaction do 
       a1 = 0
       a2 = 0
@@ -297,7 +297,8 @@ class AttendancesController < ApplicationController
       redirect_to edit_month_approval_notice_user_attendance_url(@user,item)
   end
 
-
+def log
+end 
   
 
 
