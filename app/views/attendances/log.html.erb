@@ -1,1 +1,34 @@
 <h1>勤怠ログ</h1>
+
+<p>
+  年/月　<%= date_select 'date-with-stylesheet', '', {use_month_numbers: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
+  <button type="button" class="btn btn-primary">検索</button>
+  <button type="button" class="btn btn-border-secondary">リセット</button>
+</p>
+
+  
+  
+
+<div class = "log-table">
+  <table class="table table-bordered table-condensed overtime-table">
+    <thead class="log">
+      <th>日付</th>
+      <th>変更前出社時間</th>
+      <th>変更前退社時間</th>
+      <th>変更後出社時間</th>
+      <th>変更後退社時間</th>
+      <th>指示者</div> 
+      <th>承認日</div> 
+      </th>
+    </thead>
+    <tbody class="line">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tbody>
+  </table>
+</div>
