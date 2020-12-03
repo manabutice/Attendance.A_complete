@@ -1,7 +1,6 @@
 class AttendancesController < ApplicationController
  
   before_action :set_user, only: [:edit_one_month, :update_one_month, :update_month_approval, :edit_overtime_notice, :edit_one_month_notice, :edit_month_approval_notice]
-
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_user, only: [:index,:destroy, :edit_basic_info]
   before_action :set_one_month, only: [:edit_one_month]
@@ -298,6 +297,8 @@ def update_month_approval_notice
   end
 
 def log
+  @user = User.find(params[:user_id])
+  @attendances = Attendance.where(indicater_reply_edit: "承認").order("worked_on ASC")
 end 
   
 

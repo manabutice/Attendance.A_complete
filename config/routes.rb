@@ -22,8 +22,6 @@ Rails.application.routes.draw do
       patch 'attendances/update_month_approval'
       # 確認のshowページ
       get 'verifacation'
-      # 勤怠ログ
-      get 'attendances/log'
     end
     collection do
       get 'working'
@@ -44,6 +42,8 @@ Rails.application.routes.draw do
         #１ヶ月承認モーダル
       get 'edit_month_approval_notice'
       patch 'update_month_approval_notice'
+      # 勤怠ログ
+      get 'log'
       end
     end 
   end
