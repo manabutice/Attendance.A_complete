@@ -2,7 +2,8 @@
 
 <p>
   <%= form_with url: log_user_attendance_path, local: true, method: :get do |f| %>
-  <%= f.date_select 'date-with-stylesheet', {use_month_numbers: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
+  <%= f.date_select 'date-with-stylesheet', {use_month_numbers: true, discard_month: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
+  <%= f.date_select 'date-with-stylesheet', {use_month_numbers: true, discard_year: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
     <%= f.submit "検索", class: "btn btn-lg btn-primary" %>
     <button type="button" class="btn btn-border-secondary">リセット</button>
   <% end %>
@@ -22,13 +23,15 @@
     </thead>
     <tbody class="line">
       <% @attendances.each do |day| %>
-        <td><%= l(day.worked_on, format: :short) %></td>
-        <td><%= day.started_before_at.try(:strftime,"%H:%M") %></td>
-        <td><%= day.finished_before_at.try(:strftime,"%H:%M") %></td>
-        <td><%= day.started_edit_at.try(:strftime,"%H:%M") %></td>
-        <td><%= day.finished_edit_at.try(:strftime,"%H:%M") %></td>
-        <td><%= day.indicater_check_edit %></td>
-        <td><%= l(day.updated_at, format: :md) %></td>
+        <tr class="center">
+          <td><%= l(day.worked_on, format: :short) %></td>
+          <td><%= day.started_before_at.try(:strftime,"%H:%M") %></td>
+          <td><%= day.finished_before_at.try(:strftime,"%H:%M") %></td>
+          <td><%= day.started_edit_at.try(:strftime,"%H:%M") %></td>
+          <td><%= day.finished_edit_at.try(:strftime,"%H:%M") %></td>
+          <td><%= day.indicater_check_edit %></td>
+          <td><%= l(day.updated_at, format: :md) %></td>
+        </tr>
       <% end %>  
     </tbody>
   </table>
