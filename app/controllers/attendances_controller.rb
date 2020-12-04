@@ -210,6 +210,7 @@ class AttendancesController < ApplicationController
             item[:finished_at] = attendance.finished_edit_at
             item[:started_edit_at] = nil
             item[:finished_edit_at] = nil
+            item[:note] = nil
 
             e2 += 1          
             attendance.indicater_check_anser = "勤怠変更申請を承認しました"
@@ -298,10 +299,8 @@ def update_month_approval_notice
 
 def log
   @user = User.find(params[:user_id])
-  @attendances = Attendance.where(indicater_reply_edit: "承認").order("worked_on ASC")
+  @attendances = @user.attendances.where(indicater_reply_edit: "承認").order("worked_on ASC")
 end 
-  
-
 
 private
     # 勤怠編集

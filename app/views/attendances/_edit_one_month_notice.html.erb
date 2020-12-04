@@ -10,9 +10,10 @@
         <% @users.each do |user|%>
       <% @attendances.each do |day| %>
               <%= f.fields_for "attendances[]", day do |d| %>
+              <h3 align="center" class="modal-title"><%= "【#{user.name}からの勤怠変更申請】" %></h3>
 <% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %>  
     
-          <h3 align="center" class="modal-title"><%= "【#{user.name}からの勤怠変更申請】" %></h3>
+          
       
           <table class="table table-bordered table-condensed one_month_notice-table">
 
