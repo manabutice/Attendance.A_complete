@@ -23,17 +23,9 @@
     <tbody class="line">
       <% @attendances.each do |day| %>
         <tr class="center">
-        <td><%= l(day.worked_on, format: :short) %></td>
-        <% if day.started_before_at.present? %>
+          <td><%= l(day.worked_on, format: :short) %></td>
           <td><%= day.started_before_at.try(:strftime,"%H:%M") %></td>
-        <% else %>  
-          <td></td>
-        <% end %>  
-        <% if day.finished_before_at.present? %>
           <td><%= day.finished_before_at.try(:strftime,"%H:%M") %></td> 
-        <% else %>  
-          <td></td>
-        <% end %>  
           <td><%= day.started_at.try(:strftime,"%H:%M") %></td>
           <td><%= day.finished_at.try(:strftime,"%H:%M") %></td>
           <td><%= day.indicater_check_edit %></td>

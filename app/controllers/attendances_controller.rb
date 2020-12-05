@@ -199,12 +199,12 @@ class AttendancesController < ApplicationController
             item[:indicater_check_edit] = nil
 
           elsif item[:indicater_reply_edit] == "承認"
-            if  item[:started_before_at].blank?
+            if  attendance.started_before_at.blank?
                 item[:started_before_at] = attendance.started_at
             end 
             item[:started_at] = attendance.started_edit_at
 
-            if  item[:finished_before_at].blank?
+            if  attendance.finished_before_at.blank?
                 item[:finished_before_at] = attendance.finished_at
             end 
             item[:finished_at] = attendance.finished_edit_at
