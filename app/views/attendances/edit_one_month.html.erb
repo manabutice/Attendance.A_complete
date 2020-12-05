@@ -43,7 +43,7 @@
                   <% end %>
                 </td>
                 <td><%= attendance.text_field :note, class: "form-control", placeholder: "変更理由を記載して下さい", disabled: "true" %></td>
-                <td><%= attendance.collection_select(:indicater_check_edit, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm", disabled: "true" })%></td>
+                <td><%= attendance.collection_select(:indicater_check_edit, @superior, :name, :name, {include_blank: "上長を選択して下さい"}, {class: "form-control input-sm", disabled: "true" })%></td>
               <% else %>
                 <td><%= attendance.time_field :started_edit_at, class: "form-control" %></td>
                 <td><%= attendance.time_field  :finished_edit_at, class: "form-control" %></td>
@@ -55,7 +55,7 @@
                   <% end %>
                 </td>
                 <td><%= attendance.text_field :note, class: "form-control", placeholder: "変更理由を記載して下さい" %></td>
-                <td><%= attendance.collection_select(:indicater_check_edit, @superior, :name, :name, {prompt: "上長を選択して下さい"}, {class: "form-control input-sm" })%></td>
+                <td><%= attendance.collection_select(:indicater_check_edit, @superior, :name, :name, {include_blank: "上長を選択して下さい"}, {class: "form-control input-sm" })%></td>
               <% end %>
             </tr>
           <% end %>
