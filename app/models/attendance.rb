@@ -8,16 +8,11 @@ class Attendance < ApplicationRecord
   validates :worked_on, presence: true
   validates :note, length: { maximum: 50 }
 
-# 勤怠ログ検索
-  def self.search(search)
-    if search
-      Attendance.where(['day LIKE ?', "%#{search}%"])
-    else
-      flash[:danger] = "該当する勤怠ログがありませんでした"
-      redirect_to log_user_attendanceurl
-    end
-  end
 
+
+
+# 勤怠ログ検索
+  
 
 
 

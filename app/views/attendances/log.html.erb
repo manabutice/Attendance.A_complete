@@ -1,8 +1,8 @@
 <h1>勤怠ログ</h1>
 
 <p>
-  <%= form_with url: log_user_attendance_path	, local: true, method: :get do |f| %>
-  <%= f.date_select 'search[day]' 'date-with-stylesheet', {use_month_numbers: true, discard_day: true }, {class: "form-control bootstrap-date-only-width"} %>
+  <%= form_with url: log_user_attendance_path, local: true, method: :get do |f| %>
+  <%= f.date_select :worked_on, {use_month_numbers: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
     <%= f.submit "検索", class: "btn btn-lg btn-primary" %>
     <button type="button" class="btn btn-border-secondary">リセット</button>
   <% end %>

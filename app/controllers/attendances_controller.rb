@@ -218,6 +218,7 @@ class AttendancesController < ApplicationController
           elsif item[:indicater_reply_edit] == "否認"
             item[:indicater_check_edit] = nil
             item[:started_edit_at] = nil
+            
             item[:finished_edit_at] = nil
             item[:note] = nil
             e3 += 1
@@ -299,8 +300,19 @@ def update_month_approval_notice
 
 def log
   @user = User.find(params[:user_id])
-  @attendances = @user.attendances.where(indicater_reply_edit: "承認").order("worked_on ASC")
+  # もし受け取ったパラメーターにworked_on(1i)とworked_on(2i)があれば(1iは年、2iは月)
+  if params["worked_on(1i)"].present? && params["worked_on(2i)"].present?
+    # 受け取ったworked_onの年と月を年/月にして、変数 year_monthに代入
+    year_month = "#{params["worked_on(1i)"]}/#{params["worked_on(2i)"]}"
+    # もし変数year_monthがあればDateTimeを日付に変換
+    @day = DateTime.parse(year_month) if year_month.present?
+    # @attendancesに@user.attendancesからindicater_reply_editカラムが承認のものとworked_on:のカラムが@dayのものを全て取得
+    @attendances = @user.attendances.where(indicater_reply_edit: "承認").where(worked_on: @day.all_month)
+  else
+    @attendances = @user.attendances.where(indicater_reply_edit: "承認").order("worked_on ASC")
+  end
 end 
+
 
 private
     # 勤怠編集
