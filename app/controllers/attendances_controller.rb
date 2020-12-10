@@ -126,7 +126,6 @@ class AttendancesController < ApplicationController
               flash[:danger] = "退勤時間が存在しません"
               redirect_to attendances_edit_one_month_user_url(date: params[:date]) 
               return
-
               # 翌日にチェックがなく出勤時間が退勤時間より小さい場合  
             elsif item[:tomorrow] == "0" && item[:started_edit_at].to_s > item[:finished_edit_at].to_s
               flash[:danger] = "時刻に誤りがあります"
@@ -245,8 +244,11 @@ class AttendancesController < ApplicationController
       @attendance = @user.attendances.find_by(worked_on: params[:user][:month_approval])
       # パラメーター更新
       # mon = Date.strptime(@attendance.month_approval, format: :short2)
-    if @attendance.update_attributes(month_approval_params)
+    if month_approval_params[:indicater_check_month].present?
+      @attendance.update_attributes(month_approval_params)
       flash[:success] = "勤怠承認申請を受け付けました"
+    else  
+      flash[:danger] = "上長を選択して下さい"
     end
     redirect_to user_url(@user)
   end  
