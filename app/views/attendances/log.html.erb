@@ -2,9 +2,8 @@
 
 <p>
   <%= form_with url: log_user_attendance_path, local: true, method: :get do |f| %>
-  <%= f.date_select :worked_on, {use_month_numbers: true, discard_day: true}, {class: "form-control bootstrap-date-only-width"} %>
-    <%= f.submit "検索", class: "btn btn-lg btn-primary" %>
-    <button type="button" class="btn btn-border-secondary">リセット</button>
+  <%= f.date_select :worked_on, {use_month_numbers: true, discard_day: true, prompt:["年","月"]}, {class: "form-control bootstrap-date-only-width"} %>
+  <%= f.submit "検索", class: "btn btn-lg btn-primary" %>
   <% end %>
 </p>
 
