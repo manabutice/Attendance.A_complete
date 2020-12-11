@@ -28,7 +28,7 @@
   <% @users.each do |user| %>
     <p>
       <%= user.name %><br>
-        |&nbsp<%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" },
+        |&nbsp<%= link_to "削除", user, method: :delete,data: { confirm: "#{user.name}を削除してよろしいですか？" },
         class: "btn btn-primary btn-default" %><br>
         <div class="panel-group">
           <div class="panel panel-default">

@@ -71,7 +71,7 @@
                   <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
                   <td><%= day.finished_edit_at.try(:strftime,"%M") %></td>
                   <td><%= day.note %></td>
-                  <td><%= d.select :indicater_reply_edit, Attendance.indicater_reply_edits.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+                  <td><%= d.select :indicater_reply_edit, Attendance.indicater_reply_edits.keys,{prompt: "選択してください"}, {class: "form-control input-sm" ,required: true } %></td>
                   <td><%= d.check_box :change_edit %></td>
                   <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
                 </tbody>

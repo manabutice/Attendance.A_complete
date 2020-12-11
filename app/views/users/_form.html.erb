@@ -30,6 +30,7 @@
 
    <%= f.label :designation_work_end_time, class: "label-#{yield(:class_text)}" %>
    <%= f.time_field :designation_work_end_time, class: "form-control" %>
-
+<div class = "post">
    <%= f.submit "更新", class: "btn btn-primary btn-block btn-user-#{yield(:class_text)}" %>
+</div>   
    <% end %>

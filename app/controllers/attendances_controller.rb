@@ -126,12 +126,15 @@ class AttendancesController < ApplicationController
               flash[:danger] = "退勤時間が存在しません"
               redirect_to attendances_edit_one_month_user_url(date: params[:date]) 
               return
+            elsif item[:started_edit_at].blank? && item[:finished_edit_at].blank?
+              flash[:danger] = "時刻を入力して下さい"
+              redirect_to attendances_edit_one_month_user_url(date: params[:date]) 
+              return
               # 翌日にチェックがなく出勤時間が退勤時間より小さい場合  
-            elsif item[:tomorrow] == "0" && item[:started_edit_at].to_s > item[:finished_edit_at].to_s
+            elsif item[:started_edit_at].present? && item[:finished_edit_at].present? && item[:tomorrow_edit] == "0" && item[:started_edit_at].to_s > item[:finished_edit_at].to_s
               flash[:danger] = "時刻に誤りがあります"
               redirect_to attendances_edit_one_month_user_url(date: params[:date])
               return
-
               # 備考が空の場合
             elsif item[:note].blank?
               flash[:danger] = "変更内容を記入して下さい"
@@ -221,15 +224,19 @@ class AttendancesController < ApplicationController
             item[:finished_edit_at] = nil
             item[:note] = nil
             e3 += 1
-            attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"
-          end
+            attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"   
+          end          
           attendance.update_attributes!(item)
-    
+          flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
+          redirect_to user_url(params[:user_id])
+          return
+          else 
+            flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
+            redirect_to user_url(params[:user_id])
+          return
           end
         end
       end
-      flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
-      redirect_to user_url(params[:user_id])
     end
     rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"

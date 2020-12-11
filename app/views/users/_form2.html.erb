@@ -11,10 +11,10 @@
     <%= f.text_field :department, class: "form-control" %>
 
     <%= f.label :staff_id, class: "label-#{yield(:class_text)}" %>
-    <%= f.number_field :staff_id, class: "form-control" %>
+    <%= f.number_field :staff_id, class: "form-control", min: 0, max: 100 %>
 
     <%= f.label :card_id, class: "label-#{yield(:class_text)}" %>
-    <%= f.text_field :card_id, class: "form-control"  %>
+    <%= f.number_field :card_id, class: "form-control", min: 0, max: 100  %>
 
     <%= f.label :password, class: "label-#{yield(:class_text)}" %>
     <%= f.password_field :password, class: "form-control" %>
@@ -30,6 +30,7 @@
 
     <%= f.label :designation_work_end_time, class: "label-#{yield(:class_text)}" %>
     <%= f.time_field :designation_work_end_time, class: "form-control" %>
-
+<div class = "post">
     <%= f.submit "更新", class: "btn btn-primary btn-block btn-user-#{yield(:class_text)}" %>
+</div>    
     <% end %>

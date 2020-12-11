@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
 
   def index
-      @users = User.all
+      @users = User.where.not(id: 1)
       respond_to do |format|
       format.html do
       end

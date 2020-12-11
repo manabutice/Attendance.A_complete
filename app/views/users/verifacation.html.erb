@@ -4,10 +4,7 @@
     <tr>
       <td>
       <div class="btn-users-show">
-        <%= link_to "◀︎","#" ,class: "btn btn-default disabled" %> &nbsp;&nbsp;
-        【<%= l(@first_day, format: :middle) %>】
-        &nbsp;&nbsp;
-        <%= link_to "▶︎","#" ,class: "btn btn-default disabled" %>
+        <%= l(@first_day, format: :middle) %> 　時間管理表
       </td>
 
       <td>指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>

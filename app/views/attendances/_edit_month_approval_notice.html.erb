@@ -27,7 +27,7 @@
             </thead>
             <tbody class="modal_notice">
               <td><%= l(day.month_approval, format: :short2)%>月</td>
-              <td><%= attendance.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: false}, {class: "form-control input-sm" ,required: true } %></td>
+              <td><%= attendance.select :indicater_reply_month, Attendance.indicater_reply_months.keys,{prompt: "選択してください"}, {class: "form-control input-sm" ,required: true } %></td>
               <td><%= attendance.check_box :change_month %></td>
               <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
             </tbody>
