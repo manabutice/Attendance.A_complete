@@ -17,7 +17,7 @@
       <tr class= "active">
         <div class="base-index">
           <td> <%= link_to "修正",edit_basis_path(base), remote: true, class: "btn btn-primary" %></td>
-          <td> <%= link_to "消去",base, method: :delete, data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %></td>
+          <td> <%= link_to "消去",base, method: :delete, data: { confirm: "#{base.name}を削除してよろしいですか？" }, class: "btn btn-primary" %></td>
           <td><%= base.number %></td>
           <td><%= base.name %></td>
           <td><%= base.information %></td>
@@ -30,7 +30,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <%= link_to "拠点情報の追加" ,bases_path, remote: true, class: "btn btn-primary" %>
+      <%= link_to "拠点情報の追加",new_basis_path, remote: true, class: "btn btn-primary" %>
     </div>
   </div>
 </div>

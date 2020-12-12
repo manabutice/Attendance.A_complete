@@ -7,16 +7,16 @@
         <%= l(@first_day, format: :middle) %> 　時間管理表
       </td>
 
-      <td>指定勤務開始時間：<%= format_basic_info(@user.designation_work_start_time) %><br>
-          指定勤務終了時間：<%= format_basic_info(@user.designation_work_end_time) %></td>
+      <td>指定勤務開始時間：<%= format_basic_info(@user.designated_work_start_time) %><br>
+          指定勤務終了時間：<%= format_basic_info(@user.designated_work_end_time) %></td>
       <td colspan="3">基本時間：<%= format_basic_info(@user.basic_work_time) %></td>
       <td>初日<%= l(@first_day, format: :short) %></td>
     </tr>
 
     <tr>
-      <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
+      <td>所属：<%= @user.affiliation.present? ? @user.affiliation : "未所属" %></td>
       <td>名前：<%= @user.name %></td>
-      <td>コード：<%= @user.staff_id %></td>
+      <td>コード：<%= @user.employee_number %></td>
       <td></td>
       <td>出勤日数：<%= @worked_sum %>日</td>
       <td>締め<%= l(@last_day, format: :short) %></td>
@@ -99,7 +99,7 @@
           <td><%= day.overtime_finished_at.try(:strftime,"%H") %></td>
           <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
           <% if day.overtime_finished_at.present? %> 
-            <td><%= overtime_worked_on(day.overtime_finished_at, @user.designation_work_end_time, day.tomorrow) %></td>
+            <td><%= overtime_worked_on(day.overtime_finished_at, @user.designated_work_end_time, day.tomorrow) %></td>
           <% else %>
             <td></td>
           <% end %>

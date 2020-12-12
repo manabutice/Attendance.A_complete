@@ -2,13 +2,14 @@
       <%= render 'shared/error_messages',object: @base%>
 
       <%= f.label :number, class: "label-#{yield(:class_text)}" %>
-      <%= f.number_field :number, class: "form-control" %>
+      <%= f.number_field :number, class: "form-control", min: 0, max: 100 %>
 
       <%= f.label :name, class: "label-label-#{yield(:class_text)}" %>
       <%= f.text_field :name, class: "form-control" %>
 
       <%= f.label :information, class: "label-label-#{yield(:class_text)}" %>
       <%= f.select :information,{'出勤':"出勤", '退勤':"退勤"}, { include_blank: "選択して下さい"},{ class: "form-control input-md", required: true} %>
-
+<div class = "post">
       <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-label-#{yield(:class_text)}" %>
+</div>      
 <% end %>

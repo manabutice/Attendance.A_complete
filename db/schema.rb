@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(version: 2020_11_11_024337) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.string "department"
-    t.string "staff_id"
-    t.string "card_id"
+    t.string "affiliation"
+    t.string "employee_number"
+    t.string "uid"
     t.time "basic_work_time", default: "2000-01-01 23:00:00"
-    t.time "designation_work_start_time", default: "2000-01-01 00:00:00"
-    t.time "designation_work_end_time", default: "2000-01-01 09:00:00"
+    t.time "designated_work_start_time", default: "2000-01-01 00:00:00"
+    t.time "designated_work_end_time", default: "2000-01-01 09:00:00"
     t.boolean "admin", default: false
     t.string "remember_digest"
     t.boolean "superior", default: false

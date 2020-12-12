@@ -1,20 +1,20 @@
 require "csv"
 
 CSV.generate do |csv|
-  column_names = %w(name email department staff_id card_id 
-    basic_work_time designation_work_start_time designation_work_end_time
+  column_names = %w(name email affiliation employee_number uid 
+    basic_work_time designated_work_start_time designated_work_end_time
     superior admin password )
   csv << cilumn_names
   @users.each do |user|
     column_values = [
       user.name,
       user.email,
-      user.department
-      user.staff_id
-      user.card_id 
+      user.affiliation
+      user.employee_number
+      user.uid
       user.basic_work_time
-      user.designation_work_start_time
-      user.designation_work_end_time
+      user.designated_work_start_time
+      user.designated_work_end_time
       user.superior
       user.admin
       user.password

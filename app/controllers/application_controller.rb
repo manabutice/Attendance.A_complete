@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_not
+    if current_user.admin?
+      flash[:danger] = "ページ遷移の権限がありません"
+    redirect_to root_url 
+    end
+  end
+
   def set_one_month 
     @first_day = params[:date].nil? ?
     Date.current.beginning_of_month : params[:date].to_date

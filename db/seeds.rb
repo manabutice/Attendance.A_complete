@@ -2,27 +2,27 @@
               email: "sample@email.com",
               password: "password",
               password_confirmation: "password",
-              department: "管理者",
-              staff_id: 0,
-              card_id: 0,
+              affiliation: "管理者",
+              employee_number: 0,
+              uid: 0,
               admin: true)
 
   User.create!(name: "上長A",
                 email: "sample1@email.com",
                 password: "password",
                 password_confirmation: "password",
-                department: "役員",
-                staff_id: 1,
-                card_id: 1,
+                affiliation: "役員",
+                employee_number: 1,
+                uid: 1,
                 superior: true)
 
   User.create!(name: "上長B",
                 email: "sample2@email.com",
                 password: "password",
                 password_confirmation: "password",
-                department: " 役員",
-                staff_id: 2,
-                card_id: 2,
+                affiliation: " 役員",
+                employee_number: 2,
+                uid: 2,
                 superior: true)
 
     

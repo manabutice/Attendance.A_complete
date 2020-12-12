@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [ :edit,:update]
   before_action :set_one_month, only: [:show]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :index, :working]
+  before_action :admin_not, only: [:show]
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
@@ -126,8 +127,8 @@ end
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :department,:staff_id,:card_id, :password, 
-        :password_confirmation, :basic_work_time, :designation_work_start_time, :designation_work_end_time)
+      params.require(:user).permit(:name, :email, :affiliation,:employee_number,:uid, :password, 
+        :password_confirmation, :basic_work_time, :designated_work_start_time, :designated_work_end_time)
     end
 
     
