@@ -7,84 +7,77 @@
     </div>
     <div class="modal-body">
       <%= form_with(model: @user, url: update_one_month_notice_user_attendance_path, method: :patch, local: true) do |f| %>
-      <% @users.each do |user|%>
-<h3 align="center" class="modal-title"><%= "【#{user.name}からの勤怠変更申請】" %></h3>
-      <% @attendances.each do |day| %>
-      
-              <%= f.fields_for "attendances[]", day do |d| %>
-              
-      <% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %>  
-          <table class="table table-bordered table-condensed one_month_notice-table">
-
-            <thead class="modal_notice">
-            <tr>
-              <th rowspan="3">日付</th>
-              <th rowspan="3">曜日</th>
-              <th colspan="4">変更前</th>
-              <th colspan="4">変更後</th>
-              <th rowspan="3">備考</th>
-              <th rowspan="3">指示者確認
-                <div class="maru size_small black">       
-                  <div class="letter3">印</div>
-                </div> 
-              </th>
-              <th rowspan="3">変更</th>
-              <th rowspan="3">勤務を確認する</th>
-            </tr>
-
-            <tr>
-              <th colspan="2">出社</th>
-              <th colspan="2">退社</th>
-              <th colspan="2">出社</th>
-              <th colspan="2">退社</th>
-            </tr>
-
-            <tr>
-              <th>時</th>
-              <th>分</th>
-              <th>時</th>
-              <th>分</th>
-              <th>時</th>
-              <th>分</th>
-              <th>時</th>
-              <th>分</th>
-            </tr>
-            </thead>
-                <tbody class="line">
-                  <% css_class = 
-                  case $days_of_the_week[day.worked_on.wday]
-                    when '土'         
-                    'text-primary'
-                    when '日'
-                      'text-danger'
-                    end
-                    %>
-                  <td><%= l(day.worked_on, format: :short) %></td>
-                  <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-                  <td><%= day.started_at.try(:strftime,"%H") %></td>
-                  <td><%= day.started_at.try(:strftime,"%M") %></td>
-                  <td><%= day.finished_at.try(:strftime,"%H") %></td>
-                  <td><%= day.finished_at.try(:strftime,"%M") %></td>
-                  <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
-                  <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
-                  <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
-                  <td><%= day.finished_edit_at.try(:strftime,"%M") %></td>
-                  <td><%= day.note %></td>
-                  <td><%= d.select :indicater_reply_edit, Attendance.indicater_reply_edits.keys,{prompt: "選択してください"}, {class: "form-control input-sm" ,required: true } %></td>
-                  <td><%= d.check_box :change_edit %></td>
-                  <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
-                </tbody>
-              
-
-                <% end %> 
+        <% @users.each do |user|%>
+          <h3 align="center" class="modal-title"><%= "【#{user.name}からの勤怠変更申請】" %></h3>
+            <% @attendances.each do |day| %>
+                <%= f.fields_for "attendances[]", day do |d| %>       
+                  <% if day.user_id == user.id && day.indicater_reply_edit == "申請中" && current_user.name == day.indicater_check_edit %>  
+                    <table class="table table-bordered table-condensed one_month_notice-table">
+                      <thead class="modal_notice">
+                        <tr>
+                          <th rowspan="3">日付</th>
+                          <th rowspan="3">曜日</th>
+                          <th colspan="4">変更前</th>
+                          <th colspan="4">変更後</th>
+                          <th rowspan="3">備考</th>
+                          <th rowspan="3">指示者確認
+                          <div class="maru size_small black">       
+                            <div class="letter3">印</div>
+                          </div> 
+                          </th>
+                          <th rowspan="3">変更</th>
+                          <th rowspan="3">勤務を確認する</th>
+                        </tr>
+                        <tr>
+                          <th colspan="2">出社</th>
+                          <th colspan="2">退社</th>
+                          <th colspan="2">出社</th>
+                          <th colspan="2">退社</th>
+                        </tr>
+                        <tr>
+                          <th>時</th>
+                          <th>分</th>
+                          <th>時</th>
+                          <th>分</th>
+                          <th>時</th>
+                          <th>分</th>
+                          <th>時</th>
+                          <th>分</th>
+                        </tr>
+                      </thead>
+                      <tbody class="line">
+                        <% css_class = 
+                        case $days_of_the_week[day.worked_on.wday]
+                          when '土'         
+                          'text-primary'
+                          when '日'
+                            'text-danger'
+                          end
+                          %>
+                          <td><%= l(day.worked_on, format: :short) %></td>
+                          <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>
+                          <td><%= day.started_at.try(:strftime,"%H") %></td>
+                          <td><%= day.started_at.try(:strftime,"%M") %></td>
+                          <td><%= day.finished_at.try(:strftime,"%H") %></td>
+                          <td><%= day.finished_at.try(:strftime,"%M") %></td>
+                          <td><%= day.started_edit_at.try(:strftime,"%H") %></td>
+                          <td><%= day.started_edit_at.try(:strftime,"%M") %></td>
+                          <td><%= day.finished_edit_at.try(:strftime,"%H") %></td>
+                          <td><%= day.finished_edit_at.try(:strftime,"%M") %></td>
+                          <td><%= day.note %></td>
+                          <td><%= d.select :indicater_reply_edit, Attendance.indicater_reply_edits.keys,{prompt: "選択してください"}, {class: "form-control input-sm" ,required: true } %></td>
+                          <td><%= d.check_box :change_edit %></td>
+                          <td><%= link_to "確認", verifacation_user_path(user.id, worked_on: day.worked_on), class: "btn btn-primary", target: :_blank %></td>
+                      </tbody>
+                    </table>
+                  <% end %> 
                 <% end %>
-                <% end %>
-          </table>
-      <% end %>
-          <div class="center">
-            <%= f.submit "変更を送信する", class: "btn btn-primary" %>
-          </div>
-        <% end %>
+              <% end %>
+            <% end %>
+            <div class="center">
+              <%= f.submit "変更を送信する", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
