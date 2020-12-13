@@ -43,15 +43,15 @@ class AttendancesController < ApplicationController
             end
             attendance.update_attributes!(item)
           end
-            flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
-            redirect_to user_url(params[:user_id])
-            return
-          else 
-            flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
-            redirect_to user_url(params[:user_id])
-            return
+        else 
+          flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
+          redirect_to user_url(params[:user_id])
+          return
         end
       end
+      flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
+      redirect_to user_url(params[:user_id])
+      return
     end
   rescue ActiveRecord::RecordInvalid 
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -216,21 +216,21 @@ class AttendancesController < ApplicationController
             attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"   
           end          
           attendance.update_attributes!(item)
-          flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
-          redirect_to user_url(params[:user_id])
-          return
-        else 
+        end
+      else
           flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
           redirect_to user_url(params[:user_id])
           return
         end
       end
+      flash[:success] = "【勤怠変更申請】　#{e1}件なし,　#{e2}件承認,　#{e3}件否認しました"
+      redirect_to user_url(params[:user_id])
+      return
     end
-  end
-  rescue ActiveRecord::RecordInvalid 
-    flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-    redirect_to edit_one_month_notice_user_attendance_url(@user,item)
-  end
+    rescue ActiveRecord::RecordInvalid 
+      flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
+      redirect_to edit_one_month_notice_user_attendance_url(@user,item)
+    end
 
 
 
@@ -280,9 +280,6 @@ def update_month_approval_notice
         attendance.indicater_check_month_anser = "1ヶ月分の勤怠を否認しました"
           end
           attendance.update_attributes!(item)
-          flash[:success] = "【1ヶ月の承認申請】　#{a1}件なし,　#{a2}件承認,　#{a3}件否認しました"
-          redirect_to user_url(params[:user_id])
-          return
           else 
             flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
             redirect_to user_url(params[:user_id])
@@ -290,6 +287,9 @@ def update_month_approval_notice
           end
         end
       end
+      flash[:success] = "【1ヶ月の承認申請】　#{a1}件なし,　#{a2}件承認,　#{a3}件否認しました"
+      redirect_to user_url(params[:user_id])
+      return
     end
     rescue ActiveRecord::RecordInvalid 
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
