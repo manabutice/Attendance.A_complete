@@ -42,6 +42,7 @@ class AttendancesController < ApplicationController
               attendance.indicater_check_anser = "残業申請を否認しました"
             end
             attendance.update_attributes!(item)
+          end
             flash[:success] = "【残業申請】　#{o1}件なし,　#{o2}件承認,　#{o3}件否認しました"
             redirect_to user_url(params[:user_id])
             return
@@ -49,7 +50,6 @@ class AttendancesController < ApplicationController
             flash[:danger] = "指示者確認を更新、または変更にチェックを入れて下さい"
             redirect_to user_url(params[:user_id])
             return
-          end
         end
       end
     end
