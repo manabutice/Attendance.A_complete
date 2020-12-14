@@ -16,7 +16,7 @@
     <%= f.label :uid, class: "label-#{yield(:class_text)}" %>
     <%= f.number_field :uid, class: "form-control", min: 0, max: 100  %>
 
-    <%= f.label :password, class: "label-#{yield(:class_text)}" %>
+    <%= f.label :password, classy: "label-#{yield(:class_text)}" %>
     <%= f.password_field :password, class: "form-control" %>
 
     <%= f.label :password_confirmation, class: "label--#{yield(:class_text)}" %>
