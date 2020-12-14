@@ -37,6 +37,10 @@ class AttendancesController < ApplicationController
               o2 += 1
               attendance.indicater_check_anser = "残業申請を承認しました"
             elsif item[:indicater_reply] == "否認"
+              item[:overtime_finished_at] = nil
+              item[:tomorrow] = nil
+              item[:overtime_work] = nil
+              item[:indicater_check] = nil
               item[:indicater_check] = nil
               o3 += 1
               attendance.indicater_check_anser = "残業申請を否認しました"
@@ -211,6 +215,10 @@ class AttendancesController < ApplicationController
             e2 += 1          
             attendance.indicater_check_anser = "勤怠変更申請を承認しました"
           elsif item[:indicater_reply_edit] == "否認"
+            item[:started_edit_at] = nil
+            item[:finished_edit_at] = nil
+            item[:tomorrow] = nil
+            item[:note] = nil
             item[:indicater_check_edit] = nil
             e3 += 1
             attendance.indicater_check_edit_anser = "勤怠変更申請を否認しました"   

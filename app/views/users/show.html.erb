@@ -133,14 +133,21 @@
             <% end %>
           </td>
           <td><%= day.note %></td>
-          <td><%= day.overtime_finished_at.try(:strftime,"%H") %></td>
-          <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
-          <% if day.overtime_finished_at.present? %> 
-            <td><%= overtime_worked_on(day.overtime_finished_at, @user.designated_work_end_time, day.tomorrow) %></td>
+          <% if day.indicater_reply == "承認" %>
+            <td><%= day.overtime_finished_at.try(:strftime,"%H") %></td>
+            <td><%= day.overtime_finished_at.try(:strftime,"%M") %></td>
+            <% if day.overtime_finished_at.present? %> 
+              <td><%= overtime_worked_on(day.overtime_finished_at, @user.designated_work_end_time, day.tomorrow) %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= day.overtime_work %></td>
           <% else %>
             <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           <% end %>
-          <td><%= day.overtime_work %></td>
           <td>
             <p>
               <% if day.indicater_check.present? %>
