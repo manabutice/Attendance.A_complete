@@ -18,7 +18,7 @@ class User < ApplicationRecord
   
 
   def self.import(file)
-    CSV.foreach(file.path, encoding: 'a:utf-8',headers: true) do |row|
+    CSV.foreach(file.path, encoding: 'cp932:utf-8',headers: true) do |row|
       user = find_by(id: row["id"]) || new
       user.attributes = row.to_hash.slice(*updatable_attributes)
       user.save!(:validation => false)
