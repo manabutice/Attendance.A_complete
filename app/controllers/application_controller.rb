@@ -2,7 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
+
   $days_of_the_week = %w{日 月 火 水 木 金 土}
+
 
   def set_user
     @user = User.find(params[:id])
@@ -19,7 +21,11 @@ class ApplicationController < ActionController::Base
   
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    unless current_user?(@user)
+      flash[:danger] = "他者のページは閲覧できません"
+      redirect_to(root_url) 
+    end
+
   end 
 
   def admin_user
@@ -32,6 +38,13 @@ class ApplicationController < ActionController::Base
   def admin_not
     if current_user.admin?
       flash[:danger] = "ページ遷移の権限がありません"
+    redirect_to root_url 
+    end
+  end
+
+  def correct_not
+    unless current_user == @user
+      flash[:danger] = "他者のページは閲覧できません"
     redirect_to root_url 
     end
   end
@@ -53,5 +66,25 @@ class ApplicationController < ActionController::Base
   rescue ActiveRecord::RecordInvalid
     flash[:danger] = "ページ情報の取得に失敗しました、再アクセスしてください。"
     redirect_to root_url
+  end
+
+  unless Rails.env.production?
+    rescue_from Exception,                      with: :render_500
+    rescue_from ActiveRecord::RecordNotFound,   with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+  end
+ 
+  def routing_error
+    raise ActionController::RoutingError, params[:path]
+  end
+ 
+  private
+ 
+  def render_404
+    render 'shared/404', status: :not_found
+  end
+ 
+  def render_500
+    render 'error/500', status: :internal_server_error
   end
 end

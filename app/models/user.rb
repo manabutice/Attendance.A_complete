@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 
+  
 
   def self.import(file)
     CSV.foreach(file.path, encoding: 'a:utf-8',headers: true) do |row|

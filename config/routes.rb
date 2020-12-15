@@ -47,5 +47,6 @@ Rails.application.routes.draw do
       end
     end 
   end
-
+  get '*not_found', to: 'application#routing_error'
+  post '*not_found', to: 'application#routing_error'
 end
