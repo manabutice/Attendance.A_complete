@@ -17,7 +17,7 @@
       <tr class= "active">
         <div class="base-index">
           <td> <%= link_to "修正",edit_basis_path(base), remote: true, class: "btn btn-primary" %></td>
-          <td> <%= link_to "消去",base, method: :delete, data: { confirm: "#{base.name}を削除してよろしいですか？" }, class: "btn btn-primary" %></td>
+          <td> <%= link_to "削除",base, method: :delete, data: { confirm: "#{base.name}を削除してよろしいですか？" }, class: "btn btn-primary" %></td>
           <td><%= base.number %></td>
           <td><%= base.name %></td>
           <td><%= base.information %></td>
