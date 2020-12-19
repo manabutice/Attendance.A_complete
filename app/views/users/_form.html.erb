@@ -8,13 +8,13 @@
    <%= f.email_field :email, class: "form-control" %>
 
    <%= f.label :affiliation, class: "label--#{yield(:class_text)}" %>
-   <%= f.text_field :affiliation, class: "form-control" %>
+   <%= f.text_field :affiliation, class: "form-control", min: 0  %>
 
    <%= f.label :employee_number, class: "label-#{yield(:class_text)}" %>
-   <%= f.number_field :employee_number, class: "form-control", min: 0, max: 100 %>
+   <%= f.number_field :employee_number, class: "form-control", min: 0  %>
 
    <%= f.label :uid, class: "label-#{yield(:class_text)}" %>
-   <%= f.number_field :uid, class: "form-control", min: 0, max: 100  %>
+   <%= f.number_field :uid, class: "form-control" %>
 
    <%= f.label :password, class: "label-#{yield(:class_text)}" %>
    <%= f.password_field :password, class: "form-control" %>

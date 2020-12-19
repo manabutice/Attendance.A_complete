@@ -11,10 +11,10 @@
     <%= f.text_field :affiliation, class: "form-control" %>
 
     <%= f.label :employee_number, class: "label-#{yield(:class_text)}" %>
-    <%= f.number_field :employee_number, class: "form-control", min: 0, max: 100 %>
+    <%= f.number_field :employee_number, class: "form-control", min: 0  %>
 
     <%= f.label :uid, class: "label-#{yield(:class_text)}" %>
-    <%= f.number_field :uid, class: "form-control", min: 0, max: 100  %>
+    <%= f.number_field :uid, class: "form-control", min: 0 %>
 
     <%= f.label :password, classy: "label-#{yield(:class_text)}" %>
     <%= f.password_field :password, class: "form-control" %>
