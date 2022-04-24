@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     end
   end 
 
-  def import
+  def import 
     if params[:file].blank?
       flash[:danger]= "csvファイルを選択してください"
       redirect_to users_url
