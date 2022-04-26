@@ -25,6 +25,15 @@
                 uid: 2,
                 superior: true)
 
+  User.create!(name: "一般",
+                email: "user1@email.com",
+                password: "password",
+                password_confirmation: "password",
+                affiliation: " 社員",
+                employee_number: 3,
+                uid: 3,
+                superior: true)              
+
     
 
         20.times do |n|
